@@ -49,18 +49,36 @@ def enabled() -> bool:
     return bool(token())
 
 
+_SECRET: bytes | None = None
+
+
 def _secret() -> bytes:
-    """The signing key. Kept beside the database so it survives a restart, since
-    an ephemeral key would silently sign everyone out on every reload."""
+    """The signing key, read once per process.
+
+    Persisted beside the database so a local restart does not sign everyone out.
+    On a platform with an ephemeral filesystem that write can fail or vanish, so
+    it falls back to a process-local key: every deploy and every cold start then
+    invalidates old sessions, which is the correct trade against refusing to
+    start at all.
+    """
+    global _SECRET
+    if _SECRET is not None:
+        return _SECRET
+
     path = Path(__file__).resolve().parents[1] / "data" / ".session_secret"
-    if not path.exists():
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(secrets.token_hex(32), encoding="utf-8")
-        try:
-            path.chmod(0o600)
-        except OSError:
-            pass  # not fatal on Windows
-    return path.read_text(encoding="utf-8").strip().encode()
+    try:
+        if not path.exists():
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(secrets.token_hex(32), encoding="utf-8")
+            try:
+                path.chmod(0o600)
+            except OSError:
+                pass  # not fatal on Windows
+        _SECRET = path.read_text(encoding="utf-8").strip().encode()
+    except OSError:
+        # read-only filesystem: keep serving, just with per-process sessions
+        _SECRET = secrets.token_bytes(32)
+    return _SECRET
 
 
 def _sign(expiry: int) -> str:

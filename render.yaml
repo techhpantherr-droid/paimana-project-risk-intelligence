@@ -13,8 +13,18 @@ services:
       fi
     startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /api/health
+    # the service loads shap and the trained models on first request, so the
+    # first health check needs longer than the 5s default
+    healthCheckTimeout: 120
+    autoDeploy: true
     envVars:
       - key: PYTHON_VERSION
         value: "3.11.11"
       - key: PYTHONUNBUFFERED
         value: "1"
+      # leaves the gate off until you set a token in the dashboard, so a deploy
+      # never lands wide open. Generate one with:
+      #   python -c "import secrets; print(secrets.token_urlsafe(18))"
+      # then add PAIMANA_ACCESS_TOKEN to this service's environment.
+      - key: PAIMANA_ACCESS_TOKEN
+        sync: false
