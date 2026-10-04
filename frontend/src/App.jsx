@@ -14,7 +14,7 @@ const NAV = [
   ["/projects", "Projects", "▤"],
   ["/risk", "Risk Analytics", "▲"],
   ["/predict", "What-If Analysis", "⇄"],
-  ["/drivers", "What-If Drivers", "◎"],
+  ["/drivers", "Driver Analysis", "◎"],
   ["/benchmarks", "Benchmarking", "⇅"],
   ["/sectors", "Data Insights", "◈"],
   ["/models", "Model Validation", "∑"],
