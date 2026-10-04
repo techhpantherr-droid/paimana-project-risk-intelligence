@@ -14,7 +14,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { money, monthLabel, num } from "./api";
+import { MISSING, money, monthLabel, num } from "./api";
 
 export const AXIS = { fontSize: 10, fill: "#6b7c93", fontFamily: "Inter, Segoe UI, sans-serif" };
 export const TOOLTIP = {
@@ -36,7 +36,17 @@ export const RISK_COLOR = { High: "#b3261e", Medium: "#b26a00", Low: "#1d7a4c" }
 export function RiskTag({ value }) {
   const key = String(value ?? "").toLowerCase();
   const cls = key === "high" ? "high" : key === "medium" ? "medium" : key === "low" ? "low" : "neutral";
-  return <span className={`tag ${cls}`}>{value ?? "-"}</span>;
+  return <span className={`tag ${cls}`}>{value ?? MISSING}</span>;
+}
+
+/** Distinguishes a cost figure the portal published from one we measured. */
+export function BasisTag({ value }) {
+  const reported = String(value ?? "").toLowerCase().startsWith("reported");
+  const cls = reported ? "reported" : "measured";
+  const label = reported ? "Reported" : "Measured";
+  return (
+    <span className={`tag ${cls}`} title={String(value ?? "")}>{label}</span>
+  );
 }
 
 export function Card({ title, hint, actions, children, flush = false }) {
@@ -94,29 +104,65 @@ export function Loader({ label = "Loading" }) {
   return <div className="spinner">{label}...</div>;
 }
 
-export function ErrorNote({ error }) {
+export function ErrorNote({ error, onRetry }) {
   if (!error) return null;
+
+  // Only a transport failure means the service is down. A 404 or a 422 is the
+  // service working correctly and rejecting the request, so it gets its own
+  // message instead of the "start the backend" instructions.
+  const offline = error.offline === true || error.status === 0;
+  const notFound = error.status === 404;
+  const invalid = error.status === 422;
+
+  const heading = offline
+    ? "The API is not answering"
+    : notFound
+      ? "Not found in the extract"
+      : invalid
+        ? "That request was rejected"
+        : `The request failed (${error.status ?? "no status"})`;
+
   return (
     <div className="card">
       <div className="card-body">
-        <strong style={{ color: "#b3261e" }}>The API is not answering</strong>
+        <strong style={{ color: "#b3261e" }}>{heading}</strong>
         <div className="note-block" style={{ marginTop: 8 }}>
           <div>{String(error.message ?? error)}</div>
-          <div style={{ marginTop: 8 }}>
-            The site renders nothing without the FastAPI service. In two terminals from the
-            project root:
-          </div>
-          <div style={{ marginTop: 6 }}>
-            <code>python -m backend.main</code>
-            <br />
-            <code>cd frontend &amp;&amp; npm run dev</code>
-          </div>
-          <div style={{ marginTop: 8 }}>
-            On a fresh clone also run <code>python -m backend.train</code> and{" "}
-            <code>python -m backend.store</code> once, before starting the API. Confirm the
-            service is up at <code>http://127.0.0.1:8000/api/health</code> &mdash; it should
-            return <code>{'{"status":"ok", ...}'}</code>.
-          </div>
+          {offline ? (
+            <>
+              <div style={{ marginTop: 8 }}>
+                The site needs the FastAPI service. In two terminals from the project root:
+              </div>
+              <div style={{ marginTop: 6 }}>
+                <code>python -m backend.main</code>
+                <br />
+                <code>cd frontend &amp;&amp; npm run dev</code>
+              </div>
+              <div style={{ marginTop: 8 }}>
+                On a fresh clone also run <code>python -m backend.train</code> and{" "}
+                <code>python -m backend.store</code> once, before starting the API. Confirm the
+                service is up at <code>http://127.0.0.1:8000/api/health</code> &mdash; it should
+                return <code>{'{"status":"ok", ...}'}</code>.
+              </div>
+            </>
+          ) : null}
+          {notFound ? (
+            <div style={{ marginTop: 8 }}>
+              The project code is not in the latest freeze. Pick a code from the project
+              list rather than typing one.
+            </div>
+          ) : null}
+          {invalid ? (
+            <div style={{ marginTop: 8 }}>
+              A scenario input is outside the range the models accept. Reset the inputs and
+              try again.
+            </div>
+          ) : null}
+          {onRetry ? (
+            <button className="btn ghost small" style={{ marginTop: 10 }} onClick={onRetry}>
+              Try again
+            </button>
+          ) : null}
         </div>
       </div>
     </div>

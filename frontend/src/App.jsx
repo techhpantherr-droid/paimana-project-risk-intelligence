@@ -19,7 +19,8 @@ const NAV = [
   ["/sectors", "Data Insights", "◈"],
   ["/models", "Model Validation", "∑"],
   ["/data-gap", "Data Gap", "◐"],
-  ["/assistant", "AI Assistant", "✦"],
+  ["/assistant", "Assistant", "✦"],
+  ["/methodology", "Methodology", "§"],
 ];
 
 export default function App() {

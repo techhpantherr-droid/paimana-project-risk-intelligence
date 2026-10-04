@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { api, money, num, pct } from "../api";
+import { api, money, months, num, pct, signedPct } from "../api";
 import {
+  BasisTag,
   Card,
   DataTable,
   ErrorNote,
@@ -125,15 +126,20 @@ export default function Projects() {
                 { key: "expenditure_pct_of_cost", label: "Spend %", align: "right", render: (r) => pct(r.expenditure_pct_of_cost) },
                 {
                   key: "predicted_cost_pressure_pct",
-                  label: "Cost pressure",
+                  label: "Predicted pressure",
                   align: "right",
-                  render: (r) => `${r.predicted_cost_pressure_pct > 0 ? "+" : ""}${num(r.predicted_cost_pressure_pct, 2)}%`,
+                  render: (r) => signedPct(r.predicted_cost_pressure_pct, 2),
+                },
+                {
+                  key: "cost_overrun_basis",
+                  label: "Overrun basis",
+                  render: (r) => <BasisTag value={r.cost_overrun_basis} />,
                 },
                 {
                   key: "predicted_time_overrun_months",
                   label: "Delay",
                   align: "right",
-                  render: (r) => `${num(r.predicted_time_overrun_months, 1)} mo`,
+                  render: (r) => months(r.predicted_time_overrun_months, 1),
                 },
                 { key: "risk_class", label: "Risk today", render: (r) => <RiskTag value={r.risk_class} /> },
                 { key: "predicted_risk_class", label: "Predicted", render: (r) => <RiskTag value={r.predicted_risk_class} /> },

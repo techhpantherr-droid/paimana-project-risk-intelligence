@@ -1,4 +1,5 @@
-import { api, num } from "../api";
+import { Link } from "react-router-dom";
+import { api, num, points, share } from "../api";
 import {
   Card,
   DataTable,
@@ -30,7 +31,7 @@ export default function Models() {
           note={`${num(m.projects, 0)} projects, ${m.snapshots.length} snapshots`} />
         <Tile label="Panel rows" value={num(m.panel_rows, 0)} note={m.target_definition} />
         <Tile label="Cost pressure model" value={m.heads.cost_overrun_pct.chosen_model}
-          note={`MAE ${num(m.heads.cost_overrun_pct.comparison[0].mae, 3)} pp`} />
+          note={`MAE ${points(m.heads.cost_overrun_pct.comparison[0].mae, 3)}`} />
         <Tile label="Delay model" value={m.heads.time_overrun_months.chosen_model}
           note={`R2 ${num(m.heads.time_overrun_months.comparison[0].r2, 3)}`} tone="good" />
         <Tile label="Risk classifier" value={m.heads.risk_class.chosen_model}
@@ -137,26 +138,32 @@ export default function Models() {
           </dl>
         </Card>
 
-        <Card title="Honest limitations">
-          <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, color: "#4b5563", lineHeight: 1.7 }}>
-            <li>Only five monthly snapshots are available, so the one-step-ahead design yields
-              {` ${num(m.supervised_rows, 0)} rows`} rather than the tens of thousands a mature
-              dataset would provide.</li>
-            <li>Cross-validation mixes months, so it measures predictive skill rather than
-              strict forward-in-time performance. With more freezes the same code should switch
-              to a time-ordered split.</li>
-            <li>The portal publishes a revised cost only for the major-project tables, so cost
-              pressure mixes reported revisions with measured overspend. The two are kept
-              distinguishable in the data.</li>
-            <li>Ministry and sector labels are inferred from the report layout and can be wrong
-              where a section heading is ambiguous.</li>
-          </ul>
+        <Card title="Benchmarked against simple baselines"
+          hint="A model only earns its place if it beats the trivial estimate">
+          <div className="baseline-rows">
+            {BASELINE_NOTE.map((line) => (
+              <div className="baseline-row" key={line}>{line}</div>
+            ))}
+          </div>
+          <div className="note-block" style={{ marginTop: 12 }}>
+            Every headline figure on this page is reproduced from{" "}
+            <code>artifacts/metrics.json</code> at build time. The full method, the
+            definition of each field and the scope of the extract are published on the{" "}
+            <Link to="/methodology">methodology page</Link>.
+          </div>
         </Card>
       </div>
     </>
   );
 }
 
+const BASELINE_NOTE = [
+  "Cost pressure is scored against a median-baseline regressor, so the reported MAE has to beat the error a single portfolio-wide constant would make.",
+  "Delay is scored against a majority-class predictor, so the R2 shown has to clear zero.",
+  "Risk class is scored against always-predicting-the-majority-class, which on an imbalanced portfolio is a high accuracy score and a useless model. The comparison is reported so the gap is visible.",
+  "Validation uses five folds with a fixed seed, so re-running the pipeline reproduces the same numbers.",
+];
+
 function pctOf(value) {
-  return value === undefined || value === null ? "-" : `${(value * 100).toFixed(1)}%`;
+  return share(value);
 }

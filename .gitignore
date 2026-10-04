@@ -9,6 +9,10 @@ frontend/dist/
 # raw portal PDFs are re-downloaded by scraper/paimana_client.py
 data/raw/reports/*.pdf
 
+# session signing key for the access gate. Never commit this: anyone with it can
+# mint a session cookie for the deployed instance. Regenerated on first run.
+data/.session_secret
+
 # artifacts/ and data/app.db are committed so a fresh clone runs without
 # re-training. Regenerate them with:
 #   python -m backend.train && python -m backend.store

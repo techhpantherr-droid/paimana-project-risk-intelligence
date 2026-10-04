@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
-import { api, money, num, pct } from "../api";
+import { api, months, money, num, pct, share, signedMonths, signedPct } from "../api";
 import {
   Card,
   DataTable,
   ErrorNote,
   PageHead,
   RiskTag,
+  useFetch,
 } from "../ui";
 
 export default function Predict() {
@@ -18,20 +19,31 @@ export default function Predict() {
   const [result, setResult] = useState(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState(null);
+  const [loadError, setLoadError] = useState(null);
 
   const matches = useFetch(() => api.projects({ search, page_size: 8, sort: "cost" }), [search]);
 
+  const loadProject = useCallback(async (target) => {
+    setLoadError(null);
+    setResult(null);
+    setError(null);
+    try {
+      setDetail(await api.project(target));
+    } catch (e) {
+      setDetail(null);
+      setLoadError(e);
+    }
+  }, []);
+
   useEffect(() => {
-    if (!code) return;
-    api.project(code).then((data) => {
-      setDetail(data);
-      setResult(null);
-      setError(null);
-    }).catch(setError);
-  }, [code]);
+    if (code) loadProject(code);
+    else setDetail(null);
+  }, [code, loadProject]);
 
   const run = async () => {
+    if (!code || busy) return;
     setBusy(true);
+    setError(null);
     try {
       setResult(await api.whatIf({ project_code: code, ...sim }));
     } catch (e) {
@@ -39,6 +51,11 @@ export default function Predict() {
     } finally {
       setBusy(false);
     }
+  };
+
+  const selectProject = (row) => {
+    setCode(row.project_code);
+    setSearch(row.project_name);
   };
 
   const p = detail?.current;
@@ -53,7 +70,7 @@ export default function Predict() {
           <input placeholder="Search by name, code or agency" value={search}
             onChange={(e) => setSearch(e.target.value)} style={{ minWidth: 280 }} />
           <button className="btn" disabled={!matches.data?.rows?.length}
-            onClick={() => setCode(matches.data.rows[0].project_code)}>
+            onClick={() => selectProject(matches.data.rows[0])}>
             Load first match
           </button>
           {code ? <span className="tag info">Loaded {code}</span> : null}
@@ -62,7 +79,7 @@ export default function Predict() {
           <DataTable
             rows={matches.data?.rows ?? []}
             empty={search ? "No project matches" : "Type to search the panel"}
-            onRowClick={(row) => { setCode(row.project_code); setSearch(row.project_name); }}
+            onRowClick={selectProject}
             columns={[
               { key: "project_code", label: "Code", render: (r) => <code style={{ fontSize: 12 }}>{r.project_code}</code> },
               { key: "project_name", label: "Project", render: (r) => String(r.project_name).slice(0, 62) },
@@ -74,24 +91,31 @@ export default function Predict() {
         </div>
       </Card>
 
-      {error ? <ErrorNote error={error} /> : null}
-      {!p ? <Card title="Prediction"><div className="empty">Select a project to load its prediction.</div></Card> : (
+      {error ? <ErrorNote error={error} onRetry={run} /> : null}
+      {loadError ? <ErrorNote error={loadError} onRetry={() => loadProject(code)} /> : null}
+      {!p ? (
+        <Card title="Prediction">
+          <div className="empty">
+            {matches.loading ? "Searching the panel..." : "Select a project to load its prediction."}
+          </div>
+        </Card>
+      ) : (
         <>
           <div className="tiles">
             <div className="tile">
               <div className="label">Predicted cost pressure</div>
-              <div className="value">{num(p.predicted_cost_pressure_pct, 2)}%</div>
+              <div className="value">{signedPct(p.predicted_cost_pressure_pct, 2)}</div>
               <div className="note">Spending above sanctioned cost, next month</div>
             </div>
             <div className="tile">
               <div className="label">Predicted delay</div>
-              <div className="value">{num(p.predicted_time_overrun_months, 1)} mo</div>
+              <div className="value">{months(p.predicted_time_overrun_months, 1)}</div>
               <div className="note">Against the original completion date</div>
             </div>
             <div className="tile">
               <div className="label">Risk class</div>
               <div className="value"><RiskTag value={p.predicted_risk_class} /></div>
-              <div className="note">Confidence {pct(p.confidence * 100, 0)}</div>
+              <div className="note">Confidence {share(p.confidence, 0)}</div>
             </div>
             <div className="tile">
               <div className="label">Risk today</div>
@@ -114,8 +138,14 @@ export default function Predict() {
                 <input type="number" step="5" value={sim.cost_change_pct}
                   onChange={(e) => setSim({ ...sim, cost_change_pct: Number(e.target.value) })} />
               </label>
-              <button className="btn" onClick={run} disabled={busy}>{busy ? "Running" : "Predict"}</button>
-              <button className="btn ghost" onClick={() => setSim({ expenditure_change_pct: 0, progress_change_pp: 0, cost_change_pct: 0 })}>
+              <button className="btn" onClick={run} disabled={busy || !code}>
+                {busy ? "Running" : "Run prediction"}
+              </button>
+              <button className="btn ghost" onClick={() => {
+                setSim({ expenditure_change_pct: 0, progress_change_pp: 0, cost_change_pct: 0 });
+                setResult(null);
+                setError(null);
+              }}>
                 Reset to actuals
               </button>
               <Link className="btn ghost" to={`/projects/${code}`}>Full project record</Link>
@@ -127,18 +157,18 @@ export default function Predict() {
               <div className="grid-3">
                 <div className="tile">
                   <div className="label">Cost pressure</div>
-                  <div className="value">{num(result.scenario.predicted_cost_pressure_pct, 2)}%</div>
+                  <div className="value">{signedPct(result.scenario.predicted_cost_pressure_pct, 2)}</div>
                   <div className="note">
-                    {result.change.cost_pressure_pp > 0 ? "+" : ""}{num(result.change.cost_pressure_pp, 2)} pp
-                    against {num(result.baseline.predicted_cost_pressure_pct, 2)}%
+                    {signedPct(result.change.cost_pressure_pp, 2)}
+                    against {signedPct(result.baseline.predicted_cost_pressure_pct, 2)}
                   </div>
                 </div>
                 <div className="tile">
                   <div className="label">Delay</div>
-                  <div className="value">{num(result.scenario.predicted_time_overrun_months, 1)} mo</div>
+                  <div className="value">{months(result.scenario.predicted_time_overrun_months, 1)}</div>
                   <div className="note">
-                    {result.change.delay_months > 0 ? "+" : ""}{num(result.change.delay_months, 1)} months
-                    against {num(result.baseline.predicted_time_overrun_months, 1)} mo
+                    {signedMonths(result.change.delay_months, 1)}
+                    against {months(result.baseline.predicted_time_overrun_months, 1)}
                   </div>
                 </div>
                 <div className="tile">
@@ -146,7 +176,7 @@ export default function Predict() {
                   <div className="value"><RiskTag value={result.scenario.predicted_risk_class} /></div>
                   <div className="note">
                     probabilities: {Object.entries(result.scenario.risk_probabilities)
-                      .map(([k, v]) => `${k} ${pct(v * 100, 0)}`).join("  ")}
+                      .map(([k, v]) => `${k} ${share(v, 0)}`).join("  ")}
                   </div>
                 </div>
               </div>

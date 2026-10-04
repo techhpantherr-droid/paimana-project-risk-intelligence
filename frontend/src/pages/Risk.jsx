@@ -12,7 +12,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { api, num, pct } from "../api";
+import { api, months, num, pct, signedPct } from "../api";
 import {
   AXIS,
   Card,
@@ -123,7 +123,7 @@ export default function Risk() {
               <XAxis dataKey="sector" tick={AXIS} interval={0} angle={-32}
                 textAnchor="end" height={70} />
               <YAxis tick={AXIS} tickFormatter={(v) => `${v}%`} width={46} />
-              <Tooltip {...TOOLTIP} formatter={(v) => [`${num(v, 2)}%`, "Avg cost pressure"]} />
+              <Tooltip {...TOOLTIP} formatter={(v) => [signedPct(v, 2), "Avg cost pressure"]} />
               <Bar dataKey="pressure" radius={[2, 2, 0, 0]}>
                 {bySector.map((_, i) => <Cell key={i} fill={PALETTE[i % PALETTE.length]} />)}
               </Bar>
@@ -168,13 +168,13 @@ export default function Risk() {
               key: "predicted_cost_pressure_pct",
               label: "Cost pressure",
               align: "right",
-              render: (r) => `${num(r.predicted_cost_pressure_pct, 2)}%`,
+              render: (r) => signedPct(r.predicted_cost_pressure_pct, 2),
             },
             {
               key: "predicted_time_overrun_months",
               label: "Delay",
               align: "right",
-              render: (r) => `${num(r.predicted_time_overrun_months, 1)} mo`,
+              render: (r) => months(r.predicted_time_overrun_months, 1),
             },
             { key: "confidence", label: "Confidence", align: "right", render: (r) => pct(r.confidence * 100, 0) },
           ]}

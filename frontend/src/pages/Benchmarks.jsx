@@ -13,7 +13,7 @@ import {
   YAxis,
   ZAxis,
 } from "recharts";
-import { api, money, num, pct } from "../api";
+import { api, months, money, num, pct, signedPct } from "../api";
 import {
   AXIS,
   Card,
@@ -70,11 +70,11 @@ export default function Benchmarks() {
           value={num(rows.length, 0)} note="Groups with at least one project" />
         <Tile label="Best on delay"
           value={best[0] ? `${best[0].name}` : "-"}
-          note={best[0] ? `${num(best[0].avg_delay_months, 1)} months average predicted delay` : ""}
+          note={best[0] ? `${months(best[0].avg_delay_months, 1)} average predicted delay` : ""}
           tone="good" />
         <Tile label="Worst on delay"
           value={rows[0]?.name ?? "-"}
-          note={rows[0] ? `${num(rows[0].avg_delay_months, 1)} months average predicted delay` : ""}
+          note={rows[0] ? `${months(rows[0].avg_delay_months, 1)} average predicted delay` : ""}
           tone="bad" />
         <Tile label="Projects in view"
           value={num(projects.data?.total ?? 0, 0)} note="Used for the scatter below" />
@@ -130,13 +130,13 @@ export default function Benchmarks() {
               label: "Avg predicted delay",
               render: (r) => (
                 <div style={{ minWidth: 150 }}>
-                  <div style={{ fontSize: 12 }}>{num(r.avg_delay_months, 1)} months</div>
+                  <div style={{ fontSize: 12 }}>{months(r.avg_delay_months, 1)}</div>
                   <MiniBar value={r.avg_delay_months} max={maxDelay}
                     tone={r.avg_delay_months > 24 ? "high" : r.avg_delay_months > 12 ? "medium" : "low"} />
                 </div>
               ),
             },
-            { key: "avg_cost_pressure", label: "Avg cost pressure", align: "right", render: (r) => `${num(r.avg_cost_pressure, 2)}%` },
+            { key: "avg_cost_pressure", label: "Avg cost pressure", align: "right", render: (r) => signedPct(r.avg_cost_pressure, 2) },
             { key: "high_risk_share_pct", label: "High-risk share", align: "right", render: (r) => pct(r.high_risk_share_pct) },
           ]}
         />

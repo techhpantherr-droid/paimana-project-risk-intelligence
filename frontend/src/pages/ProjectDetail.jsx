@@ -10,9 +10,10 @@ import {
   YAxis,
 } from "recharts";
 import { useState } from "react";
-import { api, money, monthLabel, num, pct } from "../api";
+import { api, months, money, monthLabel, num, pct, share, signedPct } from "../api";
 import {
   AXIS,
+  BasisTag,
   Card,
   ErrorNote,
   Loader,
@@ -29,15 +30,19 @@ export default function ProjectDetail() {
   const [sim, setSim] = useState({ expenditure_change_pct: 10, progress_change_pp: -5, cost_change_pct: 0 });
   const [simResult, setSimResult] = useState(null);
   const [simBusy, setSimBusy] = useState(false);
+  const [simError, setSimError] = useState(null);
 
   const detail = useFetch(() => api.project(code), [code]);
   const explain = useFetch(() => api.explain(code), [code]);
 
   if (detail.loading) return <Loader label="Loading project" />;
-  if (detail.error) return <ErrorNote error={detail.error} />;
+  if (detail.error) return <ErrorNote error={detail.error} onRetry={detail.reload} />;
 
   const p = detail.data?.current;
-  if (!p) return <ErrorNote error={{ message: "project not found" }} />;
+  if (!p) {
+    return <ErrorNote error={{ message: `Project ${code} is not in the latest freeze.`,
+      status: 404 }} />;
+  }
 
   const history = (detail.data?.history ?? []).map((row) => ({
     month: row.month_name ?? monthLabel(row.snapshot),
@@ -49,9 +54,13 @@ export default function ProjectDetail() {
   const maxShap = Math.max(...contributions.map((c) => Math.abs(c.shap)), 0.001);
 
   const runSimulation = async () => {
+    if (simBusy) return;
     setSimBusy(true);
+    setSimError(null);
     try {
       setSimResult(await api.whatIf({ project_code: code, ...sim }));
+    } catch (error) {
+      setSimError(error);
     } finally {
       setSimBusy(false);
     }
@@ -70,14 +79,16 @@ export default function ProjectDetail() {
         <Tileish label="Expenditure" value={money(p.expenditure)}
           note={`${pct(p.expenditure_pct_of_cost)} of sanctioned cost`} />
         <Tileish label="Physical progress" value={pct(p.physical_progress)}
-          note={`Elapsed share of duration ${pct(p.elapsed_pct)}`} />
+          note={Number.isFinite(p.elapsed_pct)
+            ? `Elapsed share of duration ${pct(p.elapsed_pct)}`
+            : "No sanctioned duration published, so elapsed share cannot be derived"} />
         <Tileish label="Risk today" value={<RiskTag value={p.risk_class} />} />
         <Tileish label="Predicted next month" value={<RiskTag value={p.predicted_risk_class} />}
-          note={`Confidence ${pct(p.confidence * 100, 0)}`} />
+          note={`Confidence ${share(p.confidence, 0)}`} />
         <Tileish label="Predicted cost pressure"
-          value={`${p.predicted_cost_pressure_pct > 0 ? "+" : ""}${num(p.predicted_cost_pressure_pct, 2)}%`} />
-        <Tileish label="Predicted delay"
-          value={`${num(p.predicted_time_overrun_months, 1)} months`} />
+          value={signedPct(p.predicted_cost_pressure_pct, 2)}
+          note={<>Basis <BasisTag value={p.cost_overrun_basis} /></>} />
+        <Tileish label="Predicted delay" value={months(p.predicted_time_overrun_months, 1)} />
         <Tileish label="Project code" value={<code>{p.project_code}</code>} />
       </div>
 
@@ -153,11 +164,11 @@ export default function ProjectDetail() {
           <dl className="kv">
             <dt>Project physical progress</dt><dd>{pct(p.physical_progress)}</dd>
             <dt>Sector average progress</dt><dd>{pct(peers.sector_progress)}</dd>
-            <dt>Project predicted delay</dt><dd>{num(p.predicted_time_overrun_months, 1)} months</dd>
-            <dt>Sector average delay</dt><dd>{num(peers.sector_delay, 1)} months</dd>
+            <dt>Project predicted delay</dt><dd>{months(p.predicted_time_overrun_months, 1)}</dd>
+            <dt>Sector average delay</dt><dd>{months(peers.sector_delay, 1)}</dd>
             <dt>Project predicted cost pressure</dt>
-            <dd>{num(p.predicted_cost_pressure_pct, 2)}%</dd>
-            <dt>Sector average cost pressure</dt><dd>{num(peers.sector_pressure, 2)}%</dd>
+            <dd>{signedPct(p.predicted_cost_pressure_pct, 2)}</dd>
+            <dt>Sector average cost pressure</dt><dd>{signedPct(peers.sector_pressure, 2)}</dd>
           </dl>
           <div style={{ marginTop: 12 }}>
             <div style={{ fontSize: 12, color: "#6b7280", marginBottom: 4 }}>Progress against sector</div>
@@ -186,18 +197,27 @@ export default function ProjectDetail() {
             <input type="number" step="5" value={sim.cost_change_pct}
               onChange={(e) => setSim({ ...sim, cost_change_pct: Number(e.target.value) })} />
           </label>
-          <button className="btn" onClick={runSimulation} disabled={simBusy}>
+          <button className="btn" onClick={runSimulation} disabled={simBusy || !code}>
             {simBusy ? "Running" : "Run simulation"}
           </button>
+          <button className="btn ghost" onClick={() => {
+            setSim({ expenditure_change_pct: 0, progress_change_pp: 0, cost_change_pct: 0 });
+            setSimResult(null);
+            setSimError(null);
+          }}>
+            Reset
+          </button>
         </div>
+
+        {simError ? <ErrorNote error={simError} onRetry={runSimulation} /> : null}
 
         {simResult ? (
           <div className="grid-3" style={{ marginTop: 14 }}>
             <div className="tile">
               <div className="label">Predicted cost pressure</div>
-              <div className="value">{num(simResult.scenario.predicted_cost_pressure_pct, 2)}%</div>
+              <div className="value">{signedPct(simResult.scenario.predicted_cost_pressure_pct, 2)}</div>
               <div className="note">
-                was {num(simResult.baseline.predicted_cost_pressure_pct, 2)}% &middot;
+                was {signedPct(simResult.baseline.predicted_cost_pressure_pct, 2)} &middot;
                 change {simResult.change.cost_pressure_pp > 0 ? "+" : ""}
                 {num(simResult.change.cost_pressure_pp, 2)} pp
               </div>

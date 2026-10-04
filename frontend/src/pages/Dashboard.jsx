@@ -10,7 +10,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { api, money, monthLabel, num, pct } from "../api";
+import { api, months, money, monthLabel, num, pct, share, signedPct } from "../api";
 import {
   AXIS,
   Card,
@@ -268,9 +268,9 @@ export default function Dashboard() {
                     <td className="num">{pct(row.physical_progress)}</td>
                     <td className="num">
                       {row.predicted_cost_pressure_pct > 0 ? "+" : ""}
-                      {num(row.predicted_cost_pressure_pct, 2)}%
+                      {signedPct(row.predicted_cost_pressure_pct, 2)}
                     </td>
-                    <td className="num">{num(row.predicted_time_overrun_months, 1)} mo</td>
+                    <td className="num">{months(row.predicted_time_overrun_months, 1)}</td>
                     <td>
                       <span className={`pill-tag ${String(row.predicted_risk_class).toLowerCase()}`}>
                         {row.predicted_risk_class}
@@ -367,25 +367,25 @@ export default function Dashboard() {
               </div>
               <div className="metric">
                 <div className="k">Predicted delay</div>
-                <div className="v">{num(current.predicted_time_overrun_months, 1)} mo</div>
+                <div className="v">{months(current.predicted_time_overrun_months, 1)}</div>
               </div>
             </div>
             <div className="progress"><i style={{ width: `${current.physical_progress}%` }} /></div>
             <div className="legend-inline">
-              <span>Predicted cost pressure +{num(current.predicted_cost_pressure_pct, 2)}%</span>
+              <span>Predicted cost pressure {signedPct(current.predicted_cost_pressure_pct, 2)}</span>
               <span>
                 Risk class{" "}
                 <span className={`pill-tag ${String(current.predicted_risk_class).toLowerCase()}`}>
                   {current.predicted_risk_class}
                 </span>
               </span>
-              <span>Model confidence {pct(current.confidence * 100)}</span>
+              <span>Model confidence {share(current.confidence)}</span>
             </div>
             {peers ? (
               <div className="note" style={{ marginTop: 12 }}>
                 Sector peers average {pct(peers.sector_progress)} progress,
-                {" "}{num(peers.sector_delay, 1)} months delay and
-                {" "}+{num(peers.sector_pressure, 2)}% cost pressure across
+                {" "}{months(peers.sector_delay, 1)} delay and
+                {" "}{signedPct(peers.sector_pressure, 2)} cost pressure across
                 {" "}{K(peers.sector_projects)} projects.
               </div>
             ) : null}

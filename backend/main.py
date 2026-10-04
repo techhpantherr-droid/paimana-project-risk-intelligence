@@ -12,21 +12,25 @@ import json
 import re
 from pathlib import Path
 from typing import Any
+from urllib.parse import parse_qs
 
 import numpy as np
 import pandas as pd
 import shap
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
+from backend import access
 from backend import features as F
 from backend import store
 from backend.assistant import answer_question
+from backend.assistant import capabilities as assistant_capability_topics
+from backend.assistant import example_questions as assistant_examples
 from backend.store import ARTIFACTS, DB_PATH, ROOT
 
 
@@ -47,7 +51,31 @@ app.add_middleware(
     allow_origin_regex=r"https://.*\.onrender\.com",
     allow_methods=["*"],
     allow_headers=["*"],
+    # a session cookie must survive cross-origin calls from the vite dev server
+    allow_credentials=True,
 )
+
+
+@app.middleware("http")
+async def access_gate(request: Request, call_next):
+    """Hold the whole app behind the shared token when one is configured.
+
+    Applies as middleware rather than a dependency per route so a newly added
+    endpoint cannot accidentally be public. Static assets are covered too: the
+    bundle is the interface, not just decoration.
+    """
+    if not access.enabled() or request.url.path in access.PUBLIC_PATHS:
+        return await call_next(request)
+    if access.verify_cookie(request.cookies.get(access.COOKIE)):
+        return await call_next(request)
+
+    # api callers get json they can act on; browsers get the sign-in page
+    if request.url.path.startswith("/api/"):
+        return JSONResponse({"detail": "authentication required"}, status_code=401)
+    if request.url.query == "denied=1":
+        return access.login_page(
+            "That token was not accepted. Check the value and try again.")
+    return access.login_page()
 
 METRICS = json.loads((ARTIFACTS / "metrics.json").read_text(encoding="utf-8"))
 REFERENCE = json.loads((ROOT / "data" / "processed" / "reference_data.json").read_text(
@@ -141,6 +169,12 @@ def portfolio_trend(dimension: str = "portfolio") -> dict:
     return {"dimension": dimension, "rows": records(rows)}
 
 
+@app.get("/api/field-glossary")
+def field_glossary() -> dict:
+    """Every derived field the platform exposes, with the basis it is published on."""
+    return {"fields": F.GLOSSARY, "labels": F.FEATURE_LABELS}
+
+
 @app.get("/api/reference")
 def reference() -> dict:
     return {
@@ -205,7 +239,8 @@ def projects(
         ordering = f"ORDER BY {sort_column} {order}"
 
     frame = query(
-        f"SELECT * FROM project_current WHERE {where} {ordering} LIMIT ? OFFSET ?",
+        f"SELECT *, {F.COST_BASIS_SQL}, {F.ELAPSED_BASIS_SQL} "
+        f"FROM project_current WHERE {where} {ordering} LIMIT ? OFFSET ?",
         tuple(params + [page_size, (page - 1) * page_size]))
     return {"total": total, "page": page, "page_size": page_size,
             "columns": list(frame.columns), "rows": records(frame)}
@@ -213,7 +248,8 @@ def projects(
 
 @app.get("/api/projects/{project_code}")
 def project_detail(project_code: str) -> dict:
-    current = query("SELECT * FROM project_current WHERE project_code = ?", (project_code,))
+    current = query(f"SELECT *, {F.COST_BASIS_SQL}, {F.ELAPSED_BASIS_SQL} "
+                    "FROM project_current WHERE project_code = ?", (project_code,))
     if current.empty:
         raise HTTPException(404, "project not found in the latest freeze")
     history = query(
@@ -428,7 +464,17 @@ def assistant(payload: dict) -> dict:
     question = str(payload.get("question", "")).strip()
     if not question:
         raise HTTPException(400, "question is required")
-    return answer_question(question)
+    context = payload.get("context")
+    if not isinstance(context, dict):
+        context = {}
+    # the client echoes back the subject of the previous turn, so "what about
+    # Karnataka" and "why is that flagged" resolve without being restated
+    return answer_question(question, context)
+
+
+@app.get("/api/assistant/capabilities")
+def assistant_capabilities() -> dict:
+    return {"topics": assistant_capability_topics(), "examples": assistant_examples()}
 
 
 @app.get("/api/search-suggestions")
@@ -452,6 +498,39 @@ def search_suggestions() -> dict:
                 "What data is missing?",
                 "What will happen next month?",
             ]}
+
+
+@app.get("/api/session")
+def session(request: Request) -> dict:
+    """Tells the SPA whether it is looking at a gated or an open deployment, so
+    the interface can explain a 401 instead of showing a blank error."""
+    return {"gated": access.enabled(), "authenticated": access.verify_cookie(
+        request.cookies.get(access.COOKIE))}
+
+
+@app.post("/api/login")
+async def login(request: Request) -> RedirectResponse:
+    # the form posts urlencoded; parsed by hand rather than via Form() so the gate
+    # does not pull in python-multipart, which would be a new dependency for one
+    # field on a page that must work even if the api is otherwise degraded
+    body = (await request.body()).decode("utf-8", "replace")
+    supplied = parse_qs(body).get("token", [""])[0]
+    client = access.client_of(request)
+    if access.throttled(client):
+        return RedirectResponse("/", status_code=303)
+    if not access.check_token(supplied.strip()):
+        access.record_failure(client)
+        return RedirectResponse("/?denied=1", status_code=303)
+    response = RedirectResponse("/", status_code=303)
+    access.set_cookie(response)
+    return response
+
+
+@app.post("/api/logout")
+def logout() -> RedirectResponse:
+    response = RedirectResponse("/", status_code=303)
+    access.clear_cookie(response)
+    return response
 
 
 DIST = ROOT / "frontend" / "dist"

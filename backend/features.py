@@ -91,6 +91,119 @@ NON_LINEAR_GROUPS = [
     "expenditure_pct_of_cost",
 ]
 
+# The glossary the methodology page publishes. `basis` is the part that matters
+# most: it states whether a figure was published by the portal, derived here from
+# published figures, or predicted by a model, so no number is read as more than it is.
+GLOSSARY: list[dict] = [
+    {"field": "original_cost", "label": "Approved cost",
+     "basis": "Reported",
+     "definition": "Sanctioned project cost as published in the PAIMANA extract."},
+    {"field": "revised_cost", "label": "Revised cost",
+     "basis": "Reported where published",
+     "definition": "Revised cost, published only in the major-project tables. Absent for most "
+                   "projects, which is why reported and measured figures are labelled separately."},
+    {"field": "expenditure", "label": "Cumulative expenditure",
+     "basis": "Reported",
+     "definition": "Cumulative spend as reported, not adjusted for revision."},
+    {"field": "physical_progress", "label": "Physical progress",
+     "basis": "Reported",
+     "definition": "Percentage of work completed, as published."},
+    {"field": "expenditure_pct_of_cost", "label": "Spend as % of approved cost",
+     "basis": "Derived",
+     "definition": "Cumulative expenditure divided by approved cost, expressed as a percentage "
+                   "and capped at 250%."},
+    {"field": "elapsed_pct", "label": "Elapsed share of duration",
+     "basis": "Derived",
+     "definition": "Months since approval divided by the sanctioned duration. Empty where the "
+                   "sanctioned duration is not published, because it cannot be derived then."},
+    {"field": "progress_gap", "label": "Progress gap",
+     "basis": "Derived",
+     "definition": "Physical progress less the elapsed share of duration. Negative means the "
+                   "project is behind the calendar."},
+    {"field": "spend_vs_progress_gap", "label": "Spend against progress gap",
+     "basis": "Derived",
+     "definition": "Financial progress less physical progress. Positive means money is going in "
+                   "faster than work is completing."},
+    {"field": "unspent_balance", "label": "Unspent balance",
+     "basis": "Derived",
+     "definition": "Approved cost less cumulative expenditure, floored at zero."},
+    {"field": "spend_rate_ppm", "label": "Monthly spend rate",
+     "basis": "Derived",
+     "definition": "Spend as a percentage of approved cost per month since approval."},
+    {"field": "project_age_months", "label": "Project age",
+     "basis": "Derived",
+     "definition": "Months between approval (or start, where later) and the freeze month."},
+    {"field": "sanctioned_duration_months", "label": "Sanctioned duration",
+     "basis": "Derived",
+     "definition": "Months from start to the original completion date."},
+    {"field": "months_to_original_doc", "label": "Months to completion",
+     "basis": "Derived",
+     "definition": "Months between the freeze month and the original completion date. Negative "
+                   "means the date has already passed."},
+    {"field": "time_overrun_months", "label": "Schedule overrun",
+     "basis": "Reported where published",
+     "definition": "Months between the original and revised completion dates. Zero where no "
+                   "revision is published, which is not the same as on time."},
+    {"field": "cost_overrun_pct", "label": "Reported cost overrun",
+     "basis": "Reported where published",
+     "definition": "Revised cost above approved cost, as a percentage. Empty for most projects "
+                   "because revised cost is published only in the major-project tables."},
+    {"field": "budget_pressure_pct", "label": "Budget pressure",
+     "basis": "Measured",
+     "definition": "Cumulative expenditure above approved cost, as a percentage. Negative where "
+                   "the project is still inside its budget."},
+    {"field": "cost_pressure_pct", "label": "Cost pressure",
+     "basis": "Reported where available, otherwise measured",
+     "definition": "The reported overrun where the portal publishes a revised cost, otherwise "
+                   "measured budget pressure floored at zero. The basis travels with the figure "
+                   "so the two are never confused."},
+    {"field": "cost_overrun_basis", "label": "Overrun basis",
+     "basis": "Label",
+     "definition": "Whether the cost figure is a reported revision or measured against budget."},
+    {"field": "risk_class", "label": "Risk class today",
+     "basis": "Derived",
+     "definition": "High, medium or low, cut from published fields on documented thresholds."},
+    {"field": "predicted_cost_pressure_pct", "label": "Predicted cost pressure",
+     "basis": "Predicted",
+     "definition": "Modelled cost pressure for the month after the freeze."},
+    {"field": "predicted_time_overrun_months", "label": "Predicted delay",
+     "basis": "Predicted",
+     "definition": "Modelled months of delay for the month after the freeze."},
+    {"field": "predicted_risk_class", "label": "Predicted risk class",
+     "basis": "Predicted",
+     "definition": "Modelled risk band for the month after the freeze."},
+    {"field": "confidence", "label": "Model confidence",
+     "basis": "Predicted",
+     "definition": "Probability the model assigns to the class it selected."},
+    {"field": "risk_moved", "label": "Risk movement",
+     "basis": "Derived",
+     "definition": "Escalating where the predicted class is worse than the current class."},
+    {"field": "alert", "label": "Alert",
+     "basis": "Derived",
+     "definition": "Set where the model expects a project to enter the high-risk band next month."},
+]
+
+# A cost figure is only a *reported* overrun where the portal has published a
+# revised cost, which it does for the major-project tables alone. Everywhere else
+# the only defensible number is measured spend against the sanctioned budget, and
+# the site has to say which of the two the reader is looking at. The rule lives
+# here once, as pandas labels and as the SQL that reproduces them for any query
+# built straight off project_current.
+COST_BASIS_REPORTED = "Reported revision"
+COST_BASIS_MEASURED = "Measured against budget"
+ELAPSED_BASIS_DERIVED = "Derived"
+ELAPSED_BASIS_ABSENT = "No sanctioned duration"
+
+COST_BASIS_SQL = (
+    f"CASE WHEN cost_overrun_pct IS NOT NULL THEN '{COST_BASIS_REPORTED}' "
+    f"ELSE '{COST_BASIS_MEASURED}' END AS cost_overrun_basis"
+)
+
+ELAPSED_BASIS_SQL = (
+    f"CASE WHEN elapsed_pct IS NOT NULL THEN '{ELAPSED_BASIS_DERIVED}' "
+    f"ELSE '{ELAPSED_BASIS_ABSENT}' END AS elapsed_pct_basis"
+)
+
 
 def month_index(dates: pd.Series) -> pd.Series:
     return dates.dt.year * 12 + dates.dt.month
@@ -154,6 +267,12 @@ def add_features(frame: pd.DataFrame) -> pd.DataFrame:
     df["budget_pressure_pct"] = (df["expenditure"] - cost) / cost * 100
     df["cost_pressure_pct"] = df["cost_overrun_pct"].where(
         df["cost_overrun_pct"].notna(), df["budget_pressure_pct"].clip(lower=0))
+    # the portal publishes a revised cost only in the major-project tables, so the
+    # basis travels with the figure and the site can label which one it is showing
+    df["cost_overrun_basis"] = np.where(
+        df["cost_overrun_pct"].notna(), COST_BASIS_REPORTED, COST_BASIS_MEASURED)
+    df["elapsed_pct_basis"] = np.where(
+        df["elapsed_pct"].notna(), ELAPSED_BASIS_DERIVED, ELAPSED_BASIS_ABSENT)
     return df
 
 

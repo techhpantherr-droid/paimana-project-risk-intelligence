@@ -13,6 +13,7 @@ import Geography from "./pages/Geography";
 import Models from "./pages/Models";
 import DataGap from "./pages/DataGap";
 import Assistant from "./pages/Assistant";
+import Methodology from "./pages/Methodology";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,7 @@ const router = createBrowserRouter([
       { path: "models", element: <Models /> },
       { path: "data-gap", element: <DataGap /> },
       { path: "assistant", element: <Assistant /> },
+      { path: "methodology", element: <Methodology /> },
       { path: "*", element: <Dashboard /> },
     ],
   },

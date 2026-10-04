@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { api } from "../api";
+import { api, num } from "../api";
 import {
   Card,
   DataTable,

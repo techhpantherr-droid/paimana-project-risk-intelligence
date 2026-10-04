@@ -1,4 +1,4 @@
-import { api, num } from "../api";
+import { api, num, signedPct } from "../api";
 import {
   Bar,
   BarChart,
@@ -43,10 +43,10 @@ export default function DataGap() {
         <Tile label="Baseline MAE" value={num(g.baseline_mae, 3)}
           note="Cost pressure, percentage points" />
         <Tile label="Best single addition"
-          value={`${num(g.most_valuable[0]?.change_pct, 2)}%`}
+          value={signedPct(g.most_valuable[0]?.change_pct, 2)}
           note={g.most_valuable[0]?.step.replace("+ ", "")} tone="good" />
         <Tile label="All candidates together"
-          value={`${num(g.steps[g.steps.length - 1].change_pct, 2)}%`}
+          value={signedPct(g.steps[g.steps.length - 1].change_pct, 2)}
           note={`MAE ${num(g.steps[g.steps.length - 1].mae, 3)}`} tone="good" />
         <Tile label="Risk accuracy today"
           value={`${(g.risk_accuracy_today * 100).toFixed(1)}%`} />
@@ -65,7 +65,7 @@ export default function DataGap() {
             <XAxis dataKey="step" tick={AXIS} interval={0} angle={-30} textAnchor="end" height={80} />
             <YAxis tick={AXIS} tickFormatter={(v) => `${v}%`} width={48} />
             <ReferenceLine y={0} stroke="#b3261e" />
-            <Tooltip {...TOOLTIP} formatter={(v, name) => [name === "MAE" ? num(v, 3) : `${num(v, 2)}%`, name]} />
+            <Tooltip {...TOOLTIP} formatter={(v, name) => [name === "MAE" ? num(v, 3) : signedPct(v, 2), name]} />
             <Bar dataKey="change" radius={[2, 2, 0, 0]}>
               {chart.map((row) => (                <Cell key={row.step} fill={row.change < 0 ? "#1d7a4c" : "#b3261e"} />
               ))}
@@ -91,7 +91,7 @@ export default function DataGap() {
               align: "right",
               render: (r) => (
                 <span className={`tag ${r.change_pct < 0 ? "low" : r.change_pct === 0 ? "neutral" : "high"}`}>
-                  {r.change_pct > 0 ? "+" : ""}{num(r.change_pct, 2)}%
+                  {signedPct(r.change_pct, 2)}
                 </span>
               ),
             },
@@ -118,7 +118,7 @@ export default function DataGap() {
             {g.most_valuable.map((s) => (
               <li key={s.step}>
                 <strong>{s.step.replace("+ ", "").replaceAll("_", " ")}</strong> &mdash;
-                {" "}{num(s.change_pct, 2)}% change in cost MAE
+                {" "}{signedPct(s.change_pct, 2)} change in cost MAE
               </li>
             ))}
           </ol>
@@ -134,7 +134,7 @@ export default function DataGap() {
             {g.least_valuable.map((s) => (
               <li key={s.step}>
                 <strong>{s.step.replace("+ ", "").replaceAll("_", " ")}</strong> &mdash;
-                {" "}{num(s.change_pct, 2)}% change in cost MAE
+                {" "}{signedPct(s.change_pct, 2)} change in cost MAE
               </li>
             ))}
           </ol>
