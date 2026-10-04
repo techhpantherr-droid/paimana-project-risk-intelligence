@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+node_modules/
+frontend/dist/
+.env
+.DS_Store
+*.log
+
+# raw portal PDFs are re-downloaded by scraper/paimana_client.py
+data/raw/reports/*.pdf
+
+# built artefacts, reproducible with `python -m backend.train` and `python -m backend.store`
+artifacts/*.joblib
+data/app.db

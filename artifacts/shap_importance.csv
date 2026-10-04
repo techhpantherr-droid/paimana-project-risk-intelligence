@@ -1,0 +1,331 @@
+feature,mean_abs_shap,target,label
+num__financial_progress,4.735409457693756,cost_overrun_pct,Financial progress
+num__expenditure_pct_of_cost,4.529489303013019,cost_overrun_pct,Expenditure as % of approved cost
+num__expenditure,0.3981585410789522,cost_overrun_pct,Cumulative expenditure
+num__months_to_original_doc,0.19471074280885844,cost_overrun_pct,Months to original completion date
+num__spend_vs_progress_gap,0.17716795913311023,cost_overrun_pct,Financial progress less physical progress
+num__unspent_balance,0.11118574074197034,cost_overrun_pct,Unspent balance
+num__project_age_months,0.08659505972705987,cost_overrun_pct,Months since approval
+num__physical_progress,0.08247815341437048,cost_overrun_pct,Physical progress reported
+cat__sector_Water Resources,0.05638438223692332,cost_overrun_pct,Sector: Water Resources
+num__progress_gap,0.05030817429602693,cost_overrun_pct,Physical progress less elapsed share
+num__sanctioned_duration_months,0.04896374005471277,cost_overrun_pct,Sanctioned project duration
+num__spend_rate_ppm,0.04633407018797268,cost_overrun_pct,Monthly spend as % of approved cost
+num__original_cost,0.04622568010277553,cost_overrun_pct,Approved project cost
+num__cost_log,0.04187210814667895,cost_overrun_pct,Project size band
+cat__sector_Oil & Gas,0.028783276165794774,cost_overrun_pct,Sector: Oil & Gas
+num__elapsed_pct,0.024260858405480406,cost_overrun_pct,Share of sanctioned duration used
+cat__state_group_Bihar,0.023101299646779698,cost_overrun_pct,State group: Bihar
+"cat__state_group_Multi-States (Puducherry, Tamil Nadu)",0.018603891007693708,cost_overrun_pct,"State group: Multi-States (Puducherry, Tamil Nadu)"
+cat__state_group_Jharkhand,0.012741536656750698,cost_overrun_pct,State group: Jharkhand
+"cat__state_group_Multi-States (Madhya Pradesh, Rajasthan)",0.009238729499677491,cost_overrun_pct,"State group: Multi-States (Madhya Pradesh, Rajasthan)"
+cat__state_group_Assam,0.005751092086472314,cost_overrun_pct,State group: Assam
+cat__sector_Roads & Highways,0.0050479299314299345,cost_overrun_pct,Sector: Roads & Highways
+cat__ministry_Ministry of Road Transport & Highways,0.004534672573720157,cost_overrun_pct,Ministry / department: Ministry of Road Transport & Highways
+cat__state_group_Maharashtra,0.004290287739609108,cost_overrun_pct,State group: Maharashtra
+cat__ministry_Ministry of Health & Family Welfare,0.003570475146366907,cost_overrun_pct,Ministry / department: Ministry of Health & Family Welfare
+cat__ministry_Ministry of Railways,0.002851351536830045,cost_overrun_pct,Ministry / department: Ministry of Railways
+cat__sector_Railways,0.00283451953155362,cost_overrun_pct,Sector: Railways
+cat__state_group_Punjab,0.0025551488372346264,cost_overrun_pct,State group: Punjab
+cat__state_group_Gujarat,0.00240542689350857,cost_overrun_pct,State group: Gujarat
+cat__state_group_Andhra Pradesh,0.0022177519189521045,cost_overrun_pct,State group: Andhra Pradesh
+num__doc_revision_flag,0.002009359206913535,cost_overrun_pct,Revised completion date already recorded
+cat__sector_Telecommunication,0.0017476285727852214,cost_overrun_pct,Sector: Telecommunication
+cat__state_group_Sikkim,0.0017013023273222804,cost_overrun_pct,State group: Sikkim
+cat__state_group_PAN India,0.0015994669625254397,cost_overrun_pct,State group: PAN India
+cat__sector_Healthcare,0.001348834427984003,cost_overrun_pct,Sector: Healthcare
+"cat__ministry_Department of Water Resources, River Development & GR",0.0013040649586502171,cost_overrun_pct,"Ministry / department: Department of Water Resources, River Development & GR"
+cat__ministry_Department of Telecommunications,0.001260571752111181,cost_overrun_pct,Ministry / department: Department of Telecommunications
+cat__ministry_Ministry of Petroleum & Natural Gas,0.0008856597286962129,cost_overrun_pct,Ministry / department: Ministry of Petroleum & Natural Gas
+cat__state_group_Odisha,0.000579200153229502,cost_overrun_pct,State group: Odisha
+cat__sector_Education,0.0005750652761650219,cost_overrun_pct,Sector: Education
+cat__state_group_Himachal Pradesh,0.0004989822441774806,cost_overrun_pct,State group: Himachal Pradesh
+num__is_mega_project,0.00046924208073701145,cost_overrun_pct,Mega project (>= Rs 1000 cr)
+cat__sector_Coal,0.00032015242184554155,cost_overrun_pct,Sector: Coal
+cat__state_group_Karnataka,0.0003007907622606784,cost_overrun_pct,State group: Karnataka
+cat__ministry_Ministry of Coal,0.00021804565334344926,cost_overrun_pct,Ministry / department: Ministry of Coal
+cat__state_group_Jammu and Kashmir,0.00018592762735407815,cost_overrun_pct,State group: Jammu and Kashmir
+"cat__state_group_Multi-States (Bihar, West Bengal)",0.00016203379297009406,cost_overrun_pct,"State group: Multi-States (Bihar, West Bengal)"
+cat__state_group_Manipur,0.0001436231095764007,cost_overrun_pct,State group: Manipur
+cat__state_group_Haryana,0.00010309296438114621,cost_overrun_pct,State group: Haryana
+cat__ministry_Ministry of Power,9.622980767176178e-05,cost_overrun_pct,Ministry / department: Ministry of Power
+cat__state_group_Tamil Nadu,7.177443438837966e-05,cost_overrun_pct,State group: Tamil Nadu
+cat__state_group_Uttarakhand,6.604695768834742e-05,cost_overrun_pct,State group: Uttarakhand
+cat__state_group_Uttar Pradesh,5.1906835306339845e-05,cost_overrun_pct,State group: Uttar Pradesh
+cat__state_group_Telangana,2.044521281510769e-05,cost_overrun_pct,State group: Telangana
+"cat__state_group_Multi-States (Bihar, Uttar Pradesh)",1.663983842124228e-05,cost_overrun_pct,"State group: Multi-States (Bihar, Uttar Pradesh)"
+cat__sector_Energy Storage,1.2879402516014477e-05,cost_overrun_pct,Sector: Energy Storage
+cat__state_group_Rajasthan,7.95666983796287e-06,cost_overrun_pct,State group: Rajasthan
+"cat__state_group_Multi-States (Bihar, Jharkhand)",7.302342263400319e-06,cost_overrun_pct,"State group: Multi-States (Bihar, Jharkhand)"
+cat__ministry_Ministry of Housing & Urban Affairs,3.96176218074853e-06,cost_overrun_pct,Ministry / department: Ministry of Housing & Urban Affairs
+cat__state_group_West Bengal,2.5666384283787743e-06,cost_overrun_pct,State group: West Bengal
+cat__state_group_Kerala,1.7890153006049469e-06,cost_overrun_pct,State group: Kerala
+cat__state_group_Arunachal Pradesh,2.567646454216437e-08,cost_overrun_pct,State group: Arunachal Pradesh
+cat__state_group_Madhya Pradesh,2.3491485654376952e-08,cost_overrun_pct,State group: Madhya Pradesh
+cat__sector_Construction,0.0,cost_overrun_pct,Sector: Construction
+num__missingindicator_sanctioned_duration_months,0.0,cost_overrun_pct,Missingindicator sanctioned duration months
+num__missingindicator_project_age_months,0.0,cost_overrun_pct,Missingindicator project age months
+num__missingindicator_elapsed_pct,0.0,cost_overrun_pct,Missingindicator elapsed pct
+num__missingindicator_months_to_original_doc,0.0,cost_overrun_pct,Missingindicator months to original doc
+num__missingindicator_spend_rate_ppm,0.0,cost_overrun_pct,Missingindicator spend rate ppm
+cat__sector_Steel,0.0,cost_overrun_pct,Sector: Steel
+cat__sector_Shipping,0.0,cost_overrun_pct,Sector: Shipping
+cat__sector_Real Estate,0.0,cost_overrun_pct,Sector: Real Estate
+cat__sector_Logistics Infrastructure,0.0,cost_overrun_pct,Sector: Logistics Infrastructure
+cat__sector_Metals & Mining,0.0,cost_overrun_pct,Sector: Metals & Mining
+cat__sector_Aviation & Aviation Infrastructure,0.0,cost_overrun_pct,Sector: Aviation & Aviation Infrastructure
+cat__sector_Electricity Generation,0.0,cost_overrun_pct,Sector: Electricity Generation
+cat__sector_Inland Waterways,0.0,cost_overrun_pct,Sector: Inland Waterways
+cat__state_group_Goa,0.0,cost_overrun_pct,State group: Goa
+cat__state_group_Delhi,0.0,cost_overrun_pct,State group: Delhi
+cat__sector_Waste & Water,0.0,cost_overrun_pct,Sector: Waste & Water
+cat__state_group_Ladakh,0.0,cost_overrun_pct,State group: Ladakh
+cat__state_group_Mizoram,0.0,cost_overrun_pct,State group: Mizoram
+"cat__state_group_Multi-States (Andhra Pradesh, Bihar, Chhattisgarh, Jharkhand, Madhya Pradesh, Maharashtra, Odisha, Telangana, Uttar Pradesh, West Bengal)",0.0,cost_overrun_pct,"State group: Multi-States (Andhra Pradesh, Bihar, Chhattisgarh, Jharkhand, Madhya Pradesh, Maharashtra, Odisha, Telangana, Uttar Pradesh, West Bengal)"
+"cat__state_group_Multi-States (Andhra Pradesh, Chhattisgarh, Jharkhand, Maharashtra, Odisha)",0.0,cost_overrun_pct,"State group: Multi-States (Andhra Pradesh, Chhattisgarh, Jharkhand, Maharashtra, Odisha)"
+cat__state_group_Meghalaya,0.0,cost_overrun_pct,State group: Meghalaya
+"cat__state_group_Multi-States (Andhra Pradesh, Chhattisgarh, Odisha)",0.0,cost_overrun_pct,"State group: Multi-States (Andhra Pradesh, Chhattisgarh, Odisha)"
+"cat__state_group_Multi-States (Andhra Pradesh, Karnataka)",0.0,cost_overrun_pct,"State group: Multi-States (Andhra Pradesh, Karnataka)"
+cat__state_group_Dadra & Nagar Haveli and Daman & Diu,0.0,cost_overrun_pct,State group: Dadra & Nagar Haveli and Daman & Diu
+cat__state_group_Chhattisgarh,0.0,cost_overrun_pct,State group: Chhattisgarh
+"cat__ministry_Ministry of Ports, Shipping and Waterways",0.0,cost_overrun_pct,"Ministry / department: Ministry of Ports, Shipping and Waterways"
+cat__ministry_Ministry of Mines,0.0,cost_overrun_pct,Ministry / department: Ministry of Mines
+cat__ministry_Ministry of Steel,0.0,cost_overrun_pct,Ministry / department: Ministry of Steel
+cat__state_group_Andaman & Nicobar,0.0,cost_overrun_pct,State group: Andaman & Nicobar
+cat__ministry_Department of Higher Education,0.0,cost_overrun_pct,Ministry / department: Department of Higher Education
+cat__ministry_Department for Promotion of Industry & Internal Trade,0.0,cost_overrun_pct,Ministry / department: Department for Promotion of Industry & Internal Trade
+cat__ministry_Ministry of Labour and Employment,0.0,cost_overrun_pct,Ministry / department: Ministry of Labour and Employment
+"cat__sector_Tourism, Hospitality & Wellness",0.0,cost_overrun_pct,"Sector: Tourism, Hospitality & Wellness"
+cat__sector_Urban Public Transport,0.0,cost_overrun_pct,Sector: Urban Public Transport
+cat__ministry_Ministry of Civil Aviation,0.0,cost_overrun_pct,Ministry / department: Ministry of Civil Aviation
+cat__ministry_Department of Sports,0.0,cost_overrun_pct,Ministry / department: Department of Sports
+cat__sector_Transmission & Distribution,0.0,cost_overrun_pct,Sector: Transmission & Distribution
+"cat__state_group_Multi-States (Bihar, Jharkhand, Uttar Pradesh, West Bengal)",0.0,cost_overrun_pct,"State group: Multi-States (Bihar, Jharkhand, Uttar Pradesh, West Bengal)"
+"cat__state_group_Multi-States (Bihar, Delhi, Jharkhand, Uttar Pradesh, West Bengal)",0.0,cost_overrun_pct,"State group: Multi-States (Bihar, Delhi, Jharkhand, Uttar Pradesh, West Bengal)"
+"cat__state_group_Multi-States (Assam, Nagaland)",0.0,cost_overrun_pct,"State group: Multi-States (Assam, Nagaland)"
+"cat__state_group_Multi-States (Assam, Meghalaya)",0.0,cost_overrun_pct,"State group: Multi-States (Assam, Meghalaya)"
+"cat__state_group_Multi-States (Assam, Bihar, West Bengal)",0.0,cost_overrun_pct,"State group: Multi-States (Assam, Bihar, West Bengal)"
+"cat__state_group_Multi-States (Assam, Manipur, Meghalaya, Mizoram, Nagaland, Tripura)",0.0,cost_overrun_pct,"State group: Multi-States (Assam, Manipur, Meghalaya, Mizoram, Nagaland, Tripura)"
+"cat__state_group_Multi-States (Assam, Bihar, Jharkhand, Odisha, West Bengal)",0.0,cost_overrun_pct,"State group: Multi-States (Assam, Bihar, Jharkhand, Odisha, West Bengal)"
+"cat__state_group_Multi-States (Arunachal Pradesh, Sikkim)",0.0,cost_overrun_pct,"State group: Multi-States (Arunachal Pradesh, Sikkim)"
+"cat__state_group_Multi-States (Andhra Pradesh, Tamil Nadu)",0.0,cost_overrun_pct,"State group: Multi-States (Andhra Pradesh, Tamil Nadu)"
+"cat__state_group_Multi-States (Arunachal Pradesh, Assam, Manipur, Meghalaya, Mizoram, Nagaland, Sikkim, Tripura, West Bengal)",0.0,cost_overrun_pct,"State group: Multi-States (Arunachal Pradesh, Assam, Manipur, Meghalaya, Mizoram, Nagaland, Sikkim, Tripura, West Bengal)"
+"cat__state_group_Multi-States (Arunachal Pradesh, Assam)",0.0,cost_overrun_pct,"State group: Multi-States (Arunachal Pradesh, Assam)"
+"cat__state_group_Multi-States (Andhra Pradesh, Telangana)",0.0,cost_overrun_pct,"State group: Multi-States (Andhra Pradesh, Telangana)"
+"cat__state_group_Multi-States (Andhra Pradesh, Maharashtra, Telangana)",0.0,cost_overrun_pct,"State group: Multi-States (Andhra Pradesh, Maharashtra, Telangana)"
+"cat__state_group_Multi-States (Andhra Pradesh, Odisha)",0.0,cost_overrun_pct,"State group: Multi-States (Andhra Pradesh, Odisha)"
+"cat__state_group_Multi-States (Bihar, Odisha, West Bengal)",0.0,cost_overrun_pct,"State group: Multi-States (Bihar, Odisha, West Bengal)"
+"cat__state_group_Multi-States (Bihar, Madhya Pradesh, Rajasthan, Uttar Pradesh)",0.0,cost_overrun_pct,"State group: Multi-States (Bihar, Madhya Pradesh, Rajasthan, Uttar Pradesh)"
+"cat__state_group_Multi-States (Gujarat, Maharashtra)",0.0,cost_overrun_pct,"State group: Multi-States (Gujarat, Maharashtra)"
+"cat__state_group_Multi-States (Gujarat, Rajasthan)",0.0,cost_overrun_pct,"State group: Multi-States (Gujarat, Rajasthan)"
+"cat__state_group_Multi-States (Haryana, Himachal Pradesh)",0.0,cost_overrun_pct,"State group: Multi-States (Haryana, Himachal Pradesh)"
+"cat__state_group_Multi-States (Haryana, Punjab)",0.0,cost_overrun_pct,"State group: Multi-States (Haryana, Punjab)"
+"cat__state_group_Multi-States (Chhattisgarh, Maharashtra)",0.0,cost_overrun_pct,"State group: Multi-States (Chhattisgarh, Maharashtra)"
+"cat__state_group_Multi-States (Chhattisgarh, Odisha)",0.0,cost_overrun_pct,"State group: Multi-States (Chhattisgarh, Odisha)"
+"cat__state_group_Multi-States (Dadra & Nagar Haveli and Daman & Diu, Gujarat, Maharashtra)",0.0,cost_overrun_pct,"State group: Multi-States (Dadra & Nagar Haveli and Daman & Diu, Gujarat, Maharashtra)"
+"cat__state_group_Multi-States (Delhi, Gujarat, Madhya Pradesh, Maharashtra, Rajasthan)",0.0,cost_overrun_pct,"State group: Multi-States (Delhi, Gujarat, Madhya Pradesh, Maharashtra, Rajasthan)"
+"cat__state_group_Multi-States (Delhi, Haryana)",0.0,cost_overrun_pct,"State group: Multi-States (Delhi, Haryana)"
+"cat__state_group_Multi-States (Delhi, Rajasthan)",0.0,cost_overrun_pct,"State group: Multi-States (Delhi, Rajasthan)"
+"cat__state_group_Multi-States (Goa, Karnataka)",0.0,cost_overrun_pct,"State group: Multi-States (Goa, Karnataka)"
+"cat__state_group_Multi-States (Gujarat, Haryana, Maharashtra, Rajasthan, Uttar Pradesh)",0.0,cost_overrun_pct,"State group: Multi-States (Gujarat, Haryana, Maharashtra, Rajasthan, Uttar Pradesh)"
+"cat__state_group_Multi-States (Gujarat, Haryana, Punjab, Rajasthan)",0.0,cost_overrun_pct,"State group: Multi-States (Gujarat, Haryana, Punjab, Rajasthan)"
+"cat__state_group_Multi-States (Gujarat, Haryana, Rajasthan)",0.0,cost_overrun_pct,"State group: Multi-States (Gujarat, Haryana, Rajasthan)"
+"cat__state_group_Multi-States (Gujarat, Madhya Pradesh)",0.0,cost_overrun_pct,"State group: Multi-States (Gujarat, Madhya Pradesh)"
+"cat__state_group_Multi-States (Gujarat, Madhya Pradesh, Uttar Pradesh)",0.0,cost_overrun_pct,"State group: Multi-States (Gujarat, Madhya Pradesh, Uttar Pradesh)"
+"cat__state_group_Multi-States (Karnataka, Maharashtra)",0.0,cost_overrun_pct,"State group: Multi-States (Karnataka, Maharashtra)"
+"cat__state_group_Multi-States (Karnataka, Kerala, Tamil Nadu)",0.0,cost_overrun_pct,"State group: Multi-States (Karnataka, Kerala, Tamil Nadu)"
+"cat__state_group_Multi-States (Karnataka, Kerala)",0.0,cost_overrun_pct,"State group: Multi-States (Karnataka, Kerala)"
+"cat__state_group_Multi-States (Jharkhand, West Bengal)",0.0,cost_overrun_pct,"State group: Multi-States (Jharkhand, West Bengal)"
+"cat__state_group_Multi-States (Jharkhand, Odisha, West Bengal)",0.0,cost_overrun_pct,"State group: Multi-States (Jharkhand, Odisha, West Bengal)"
+"cat__state_group_Multi-States (Jharkhand, Odisha)",0.0,cost_overrun_pct,"State group: Multi-States (Jharkhand, Odisha)"
+"cat__state_group_Multi-States (Jammu and Kashmir, Punjab)",0.0,cost_overrun_pct,"State group: Multi-States (Jammu and Kashmir, Punjab)"
+"cat__state_group_Multi-States (Himachal Pradesh, Uttarakhand)",0.0,cost_overrun_pct,"State group: Multi-States (Himachal Pradesh, Uttarakhand)"
+"cat__state_group_Multi-States (Himachal Pradesh, Punjab)",0.0,cost_overrun_pct,"State group: Multi-States (Himachal Pradesh, Punjab)"
+"cat__state_group_Multi-States (Haryana, Uttar Pradesh)",0.0,cost_overrun_pct,"State group: Multi-States (Haryana, Uttar Pradesh)"
+"cat__state_group_Multi-States (Haryana, Rajasthan)",0.0,cost_overrun_pct,"State group: Multi-States (Haryana, Rajasthan)"
+"cat__state_group_Multi-States (Haryana, Punjab, Rajasthan)",0.0,cost_overrun_pct,"State group: Multi-States (Haryana, Punjab, Rajasthan)"
+"cat__state_group_Multi-States (Kerala, Puducherry)",0.0,cost_overrun_pct,"State group: Multi-States (Kerala, Puducherry)"
+"cat__state_group_Multi-States (Kerala, Tamil Nadu)",0.0,cost_overrun_pct,"State group: Multi-States (Kerala, Tamil Nadu)"
+"cat__state_group_Multi-States (Karnataka, Telangana)",0.0,cost_overrun_pct,"State group: Multi-States (Karnataka, Telangana)"
+"cat__state_group_Multi-States (Karnataka, Maharashtra, Telangana, Uttar Pradesh)",0.0,cost_overrun_pct,"State group: Multi-States (Karnataka, Maharashtra, Telangana, Uttar Pradesh)"
+"cat__state_group_Multi-States (Uttar Pradesh, Uttarakhand)",0.0,cost_overrun_pct,"State group: Multi-States (Uttar Pradesh, Uttarakhand)"
+"cat__state_group_Multi-States (Sikkim, West Bengal)",0.0,cost_overrun_pct,"State group: Multi-States (Sikkim, West Bengal)"
+"cat__state_group_Multi-States (Rajasthan, Uttar Pradesh)",0.0,cost_overrun_pct,"State group: Multi-States (Rajasthan, Uttar Pradesh)"
+"cat__state_group_Multi-States (Punjab, Rajasthan)",0.0,cost_overrun_pct,"State group: Multi-States (Punjab, Rajasthan)"
+"cat__state_group_Multi-States (Odisha, West Bengal)",0.0,cost_overrun_pct,"State group: Multi-States (Odisha, West Bengal)"
+"cat__state_group_Multi-States (Maharashtra, Telangana)",0.0,cost_overrun_pct,"State group: Multi-States (Maharashtra, Telangana)"
+"cat__state_group_Multi-States (Madhya Pradesh, Uttar Pradesh)",0.0,cost_overrun_pct,"State group: Multi-States (Madhya Pradesh, Uttar Pradesh)"
+"cat__state_group_Multi-States (Madhya Pradesh, Rajasthan, Uttar Pradesh)",0.0,cost_overrun_pct,"State group: Multi-States (Madhya Pradesh, Rajasthan, Uttar Pradesh)"
+"cat__state_group_Multi-States (Karnataka, Tamil Nadu)",0.0,cost_overrun_pct,"State group: Multi-States (Karnataka, Tamil Nadu)"
+"cat__state_group_Multi-States (Madhya Pradesh, Maharashtra)",0.0,cost_overrun_pct,"State group: Multi-States (Madhya Pradesh, Maharashtra)"
+cat__state_group_Nagaland,0.0,cost_overrun_pct,State group: Nagaland
+cat__state_group_Offshore,0.0,cost_overrun_pct,State group: Offshore
+cat__state_group_Puducherry,0.0,cost_overrun_pct,State group: Puducherry
+"cat__state_group_Multi-States (Uttar Pradesh, West Bengal)",0.0,cost_overrun_pct,"State group: Multi-States (Uttar Pradesh, West Bengal)"
+cat__state_group_Tripura,0.0,cost_overrun_pct,State group: Tripura
+cat__state_group_infrequent_sklearn,0.0,cost_overrun_pct,State group: infrequent_sklearn
+num__months_to_original_doc,7.006371974945068,time_overrun_months,Months to original completion date
+"cat__state_group_Multi-States (Maharashtra, Telangana)",5.860100746154785,time_overrun_months,"State group: Multi-States (Maharashtra, Telangana)"
+"cat__state_group_Multi-States (Puducherry, Tamil Nadu)",4.467479228973389,time_overrun_months,"State group: Multi-States (Puducherry, Tamil Nadu)"
+num__doc_revision_flag,3.7961807250976562,time_overrun_months,Revised completion date already recorded
+"cat__state_group_Multi-States (Assam, Nagaland)",3.24499249458313,time_overrun_months,"State group: Multi-States (Assam, Nagaland)"
+"cat__state_group_Multi-States (Gujarat, Madhya Pradesh)",3.150172472000122,time_overrun_months,"State group: Multi-States (Gujarat, Madhya Pradesh)"
+cat__state_group_Himachal Pradesh,2.841686964035034,time_overrun_months,State group: Himachal Pradesh
+num__elapsed_pct,2.713188409805298,time_overrun_months,Share of sanctioned duration used
+"cat__state_group_Multi-States (Andhra Pradesh, Karnataka)",1.5098586082458496,time_overrun_months,"State group: Multi-States (Andhra Pradesh, Karnataka)"
+"cat__state_group_Multi-States (Dadra & Nagar Haveli and Daman & Diu, Gujarat, Maharashtra)",1.2123420238494873,time_overrun_months,"State group: Multi-States (Dadra & Nagar Haveli and Daman & Diu, Gujarat, Maharashtra)"
+cat__state_group_Sikkim,0.9880747199058533,time_overrun_months,State group: Sikkim
+cat__state_group_West Bengal,0.8949861526489258,time_overrun_months,State group: West Bengal
+num__original_cost,0.8838678598403931,time_overrun_months,Approved project cost
+"cat__ministry_Ministry of Ports, Shipping and Waterways",0.8665582537651062,time_overrun_months,"Ministry / department: Ministry of Ports, Shipping and Waterways"
+cat__state_group_Nagaland,0.8584269285202026,time_overrun_months,State group: Nagaland
+"cat__state_group_Multi-States (Madhya Pradesh, Uttar Pradesh)",0.843722403049469,time_overrun_months,"State group: Multi-States (Madhya Pradesh, Uttar Pradesh)"
+num__sanctioned_duration_months,0.8111133575439453,time_overrun_months,Sanctioned project duration
+num__physical_progress,0.7813063859939575,time_overrun_months,Physical progress reported
+num__project_age_months,0.7681171894073486,time_overrun_months,Months since approval
+"cat__state_group_Multi-States (Madhya Pradesh, Maharashtra)",0.7556257843971252,time_overrun_months,"State group: Multi-States (Madhya Pradesh, Maharashtra)"
+"cat__state_group_Multi-States (Madhya Pradesh, Rajasthan, Uttar Pradesh)",0.7544671297073364,time_overrun_months,"State group: Multi-States (Madhya Pradesh, Rajasthan, Uttar Pradesh)"
+num__progress_gap,0.7029327750205994,time_overrun_months,Physical progress less elapsed share
+cat__state_group_Punjab,0.6722429394721985,time_overrun_months,State group: Punjab
+cat__state_group_Assam,0.6695439219474792,time_overrun_months,State group: Assam
+cat__state_group_Bihar,0.6680001020431519,time_overrun_months,State group: Bihar
+num__expenditure,0.6336398720741272,time_overrun_months,Cumulative expenditure
+cat__ministry_Ministry of Mines,0.617013156414032,time_overrun_months,Ministry / department: Ministry of Mines
+"cat__state_group_Multi-States (Gujarat, Maharashtra)",0.6049370765686035,time_overrun_months,"State group: Multi-States (Gujarat, Maharashtra)"
+"cat__state_group_Multi-States (Jammu and Kashmir, Punjab)",0.5792895555496216,time_overrun_months,"State group: Multi-States (Jammu and Kashmir, Punjab)"
+cat__sector_Electricity Generation,0.5717882513999939,time_overrun_months,Sector: Electricity Generation
+cat__state_group_Telangana,0.5586976408958435,time_overrun_months,State group: Telangana
+cat__ministry_Department for Promotion of Industry & Internal Trade,0.5510600805282593,time_overrun_months,Ministry / department: Department for Promotion of Industry & Internal Trade
+cat__ministry_Ministry of Coal,0.5260253548622131,time_overrun_months,Ministry / department: Ministry of Coal
+cat__state_group_Jammu and Kashmir,0.48310351371765137,time_overrun_months,State group: Jammu and Kashmir
+"cat__state_group_Multi-States (Madhya Pradesh, Rajasthan)",0.4828889071941376,time_overrun_months,"State group: Multi-States (Madhya Pradesh, Rajasthan)"
+cat__state_group_Gujarat,0.4321018159389496,time_overrun_months,State group: Gujarat
+cat__state_group_Uttarakhand,0.4231998026371002,time_overrun_months,State group: Uttarakhand
+cat__sector_Shipping,0.42206597328186035,time_overrun_months,Sector: Shipping
+cat__state_group_Mizoram,0.4161611795425415,time_overrun_months,State group: Mizoram
+cat__ministry_Ministry of Steel,0.4154699742794037,time_overrun_months,Ministry / department: Ministry of Steel
+cat__sector_Coal,0.40329405665397644,time_overrun_months,Sector: Coal
+cat__sector_Aviation & Aviation Infrastructure,0.3717770576477051,time_overrun_months,Sector: Aviation & Aviation Infrastructure
+cat__sector_Oil & Gas,0.3546239137649536,time_overrun_months,Sector: Oil & Gas
+num__expenditure_pct_of_cost,0.3516528606414795,time_overrun_months,Expenditure as % of approved cost
+cat__state_group_Karnataka,0.3433704078197479,time_overrun_months,State group: Karnataka
+"cat__state_group_Multi-States (Karnataka, Maharashtra)",0.3144128620624542,time_overrun_months,"State group: Multi-States (Karnataka, Maharashtra)"
+"cat__state_group_Multi-States (Odisha, West Bengal)",0.3015398681163788,time_overrun_months,"State group: Multi-States (Odisha, West Bengal)"
+num__spend_vs_progress_gap,0.2999195456504822,time_overrun_months,Financial progress less physical progress
+cat__sector_Steel,0.28649571537971497,time_overrun_months,Sector: Steel
+cat__sector_Metals & Mining,0.2831641435623169,time_overrun_months,Sector: Metals & Mining
+cat__sector_Railways,0.2830965220928192,time_overrun_months,Sector: Railways
+cat__ministry_Ministry of Health & Family Welfare,0.2781648635864258,time_overrun_months,Ministry / department: Ministry of Health & Family Welfare
+cat__ministry_Ministry of Housing & Urban Affairs,0.27505218982696533,time_overrun_months,Ministry / department: Ministry of Housing & Urban Affairs
+cat__state_group_Tripura,0.27498483657836914,time_overrun_months,State group: Tripura
+"cat__state_group_Multi-States (Bihar, West Bengal)",0.2671268880367279,time_overrun_months,"State group: Multi-States (Bihar, West Bengal)"
+cat__state_group_Offshore,0.2669300436973572,time_overrun_months,State group: Offshore
+cat__state_group_Tamil Nadu,0.2651112675666809,time_overrun_months,State group: Tamil Nadu
+num__unspent_balance,0.2555501163005829,time_overrun_months,Unspent balance
+cat__sector_Education,0.24677236378192902,time_overrun_months,Sector: Education
+cat__state_group_Arunachal Pradesh,0.23688752949237823,time_overrun_months,State group: Arunachal Pradesh
+num__spend_rate_ppm,0.2365248054265976,time_overrun_months,Monthly spend as % of approved cost
+cat__sector_Waste & Water,0.23496820032596588,time_overrun_months,Sector: Waste & Water
+cat__sector_Urban Public Transport,0.22966666519641876,time_overrun_months,Sector: Urban Public Transport
+"cat__state_group_Multi-States (Karnataka, Telangana)",0.22408919036388397,time_overrun_months,"State group: Multi-States (Karnataka, Telangana)"
+cat__sector_Roads & Highways,0.2051296830177307,time_overrun_months,Sector: Roads & Highways
+"cat__state_group_Multi-States (Andhra Pradesh, Bihar, Chhattisgarh, Jharkhand, Madhya Pradesh, Maharashtra, Odisha, Telangana, Uttar Pradesh, West Bengal)",0.18826717138290405,time_overrun_months,"State group: Multi-States (Andhra Pradesh, Bihar, Chhattisgarh, Jharkhand, Madhya Pradesh, Maharashtra, Odisha, Telangana, Uttar Pradesh, West Bengal)"
+cat__state_group_Jharkhand,0.1877768188714981,time_overrun_months,State group: Jharkhand
+cat__state_group_Uttar Pradesh,0.18349573016166687,time_overrun_months,State group: Uttar Pradesh
+cat__ministry_Ministry of Power,0.18149590492248535,time_overrun_months,Ministry / department: Ministry of Power
+cat__state_group_Maharashtra,0.1804000586271286,time_overrun_months,State group: Maharashtra
+cat__state_group_Rajasthan,0.1640201210975647,time_overrun_months,State group: Rajasthan
+"cat__state_group_Multi-States (Himachal Pradesh, Punjab)",0.16146400570869446,time_overrun_months,"State group: Multi-States (Himachal Pradesh, Punjab)"
+num__cost_log,0.15870890021324158,time_overrun_months,Project size band
+cat__ministry_Ministry of Petroleum & Natural Gas,0.12551143765449524,time_overrun_months,Ministry / department: Ministry of Petroleum & Natural Gas
+cat__ministry_Department of Higher Education,0.12388323992490768,time_overrun_months,Ministry / department: Department of Higher Education
+cat__state_group_Kerala,0.12315975874662399,time_overrun_months,State group: Kerala
+cat__state_group_Haryana,0.11990951746702194,time_overrun_months,State group: Haryana
+"cat__ministry_Department of Water Resources, River Development & GR",0.11326410621404648,time_overrun_months,"Ministry / department: Department of Water Resources, River Development & GR"
+"cat__state_group_Multi-States (Bihar, Uttar Pradesh)",0.11047594249248505,time_overrun_months,"State group: Multi-States (Bihar, Uttar Pradesh)"
+cat__state_group_Goa,0.10321749746799469,time_overrun_months,State group: Goa
+cat__state_group_Andhra Pradesh,0.09633277356624603,time_overrun_months,State group: Andhra Pradesh
+"cat__state_group_Multi-States (Arunachal Pradesh, Assam)",0.09391124546527863,time_overrun_months,"State group: Multi-States (Arunachal Pradesh, Assam)"
+cat__sector_Real Estate,0.09291809797286987,time_overrun_months,Sector: Real Estate
+cat__ministry_Ministry of Railways,0.0902954638004303,time_overrun_months,Ministry / department: Ministry of Railways
+"cat__state_group_Multi-States (Goa, Karnataka)",0.07516882568597794,time_overrun_months,"State group: Multi-States (Goa, Karnataka)"
+cat__ministry_Department of Telecommunications,0.07142894715070724,time_overrun_months,Ministry / department: Department of Telecommunications
+num__financial_progress,0.0712815523147583,time_overrun_months,Financial progress
+cat__state_group_Meghalaya,0.06483012437820435,time_overrun_months,State group: Meghalaya
+"cat__state_group_Multi-States (Andhra Pradesh, Telangana)",0.05871172249317169,time_overrun_months,"State group: Multi-States (Andhra Pradesh, Telangana)"
+"cat__state_group_Multi-States (Karnataka, Tamil Nadu)",0.05767599865794182,time_overrun_months,"State group: Multi-States (Karnataka, Tamil Nadu)"
+"cat__state_group_Multi-States (Bihar, Jharkhand)",0.05386832356452942,time_overrun_months,"State group: Multi-States (Bihar, Jharkhand)"
+cat__state_group_Madhya Pradesh,0.05179263651371002,time_overrun_months,State group: Madhya Pradesh
+cat__sector_Telecommunication,0.04700997471809387,time_overrun_months,Sector: Telecommunication
+cat__state_group_Andaman & Nicobar,0.04042726755142212,time_overrun_months,State group: Andaman & Nicobar
+cat__ministry_Ministry of Road Transport & Highways,0.03867750242352486,time_overrun_months,Ministry / department: Ministry of Road Transport & Highways
+cat__sector_Healthcare,0.036514367908239365,time_overrun_months,Sector: Healthcare
+cat__sector_Water Resources,0.03555510565638542,time_overrun_months,Sector: Water Resources
+"cat__state_group_Multi-States (Andhra Pradesh, Odisha)",0.028292778879404068,time_overrun_months,"State group: Multi-States (Andhra Pradesh, Odisha)"
+cat__state_group_Manipur,0.027540188282728195,time_overrun_months,State group: Manipur
+cat__ministry_Ministry of Civil Aviation,0.024594372138381004,time_overrun_months,Ministry / department: Ministry of Civil Aviation
+cat__state_group_Odisha,0.012573345564305782,time_overrun_months,State group: Odisha
+cat__state_group_Chhattisgarh,0.009356795810163021,time_overrun_months,State group: Chhattisgarh
+cat__sector_Transmission & Distribution,0.006249354220926762,time_overrun_months,Sector: Transmission & Distribution
+num__is_mega_project,0.003158432897180319,time_overrun_months,Mega project (>= Rs 1000 cr)
+num__missingindicator_elapsed_pct,0.00025496873422525823,time_overrun_months,Missingindicator elapsed pct
+num__missingindicator_sanctioned_duration_months,0.00010714762174757197,time_overrun_months,Missingindicator sanctioned duration months
+num__missingindicator_project_age_months,0.0,time_overrun_months,Missingindicator project age months
+num__missingindicator_months_to_original_doc,0.0,time_overrun_months,Missingindicator months to original doc
+num__missingindicator_spend_rate_ppm,0.0,time_overrun_months,Missingindicator spend rate ppm
+cat__sector_Logistics Infrastructure,0.0,time_overrun_months,Sector: Logistics Infrastructure
+cat__sector_Construction,0.0,time_overrun_months,Sector: Construction
+cat__sector_Energy Storage,0.0,time_overrun_months,Sector: Energy Storage
+cat__sector_Inland Waterways,0.0,time_overrun_months,Sector: Inland Waterways
+"cat__state_group_Multi-States (Bihar, Jharkhand, Uttar Pradesh, West Bengal)",0.0,time_overrun_months,"State group: Multi-States (Bihar, Jharkhand, Uttar Pradesh, West Bengal)"
+"cat__state_group_Multi-States (Bihar, Delhi, Jharkhand, Uttar Pradesh, West Bengal)",0.0,time_overrun_months,"State group: Multi-States (Bihar, Delhi, Jharkhand, Uttar Pradesh, West Bengal)"
+cat__state_group_Dadra & Nagar Haveli and Daman & Diu,0.0,time_overrun_months,State group: Dadra & Nagar Haveli and Daman & Diu
+cat__state_group_Delhi,0.0,time_overrun_months,State group: Delhi
+cat__ministry_Ministry of Labour and Employment,0.0,time_overrun_months,Ministry / department: Ministry of Labour and Employment
+"cat__sector_Tourism, Hospitality & Wellness",0.0,time_overrun_months,"Sector: Tourism, Hospitality & Wellness"
+"cat__state_group_Multi-States (Assam, Manipur, Meghalaya, Mizoram, Nagaland, Tripura)",0.0,time_overrun_months,"State group: Multi-States (Assam, Manipur, Meghalaya, Mizoram, Nagaland, Tripura)"
+"cat__state_group_Multi-States (Assam, Meghalaya)",0.0,time_overrun_months,"State group: Multi-States (Assam, Meghalaya)"
+"cat__state_group_Multi-States (Assam, Bihar, West Bengal)",0.0,time_overrun_months,"State group: Multi-States (Assam, Bihar, West Bengal)"
+"cat__state_group_Multi-States (Assam, Bihar, Jharkhand, Odisha, West Bengal)",0.0,time_overrun_months,"State group: Multi-States (Assam, Bihar, Jharkhand, Odisha, West Bengal)"
+"cat__state_group_Multi-States (Arunachal Pradesh, Assam, Manipur, Meghalaya, Mizoram, Nagaland, Sikkim, Tripura, West Bengal)",0.0,time_overrun_months,"State group: Multi-States (Arunachal Pradesh, Assam, Manipur, Meghalaya, Mizoram, Nagaland, Sikkim, Tripura, West Bengal)"
+"cat__state_group_Multi-States (Arunachal Pradesh, Sikkim)",0.0,time_overrun_months,"State group: Multi-States (Arunachal Pradesh, Sikkim)"
+"cat__state_group_Multi-States (Andhra Pradesh, Maharashtra, Telangana)",0.0,time_overrun_months,"State group: Multi-States (Andhra Pradesh, Maharashtra, Telangana)"
+"cat__state_group_Multi-States (Andhra Pradesh, Tamil Nadu)",0.0,time_overrun_months,"State group: Multi-States (Andhra Pradesh, Tamil Nadu)"
+"cat__state_group_Multi-States (Andhra Pradesh, Chhattisgarh, Jharkhand, Maharashtra, Odisha)",0.0,time_overrun_months,"State group: Multi-States (Andhra Pradesh, Chhattisgarh, Jharkhand, Maharashtra, Odisha)"
+"cat__state_group_Multi-States (Andhra Pradesh, Chhattisgarh, Odisha)",0.0,time_overrun_months,"State group: Multi-States (Andhra Pradesh, Chhattisgarh, Odisha)"
+cat__state_group_Ladakh,0.0,time_overrun_months,State group: Ladakh
+cat__ministry_Department of Sports,0.0,time_overrun_months,Ministry / department: Department of Sports
+"cat__state_group_Multi-States (Delhi, Rajasthan)",0.0,time_overrun_months,"State group: Multi-States (Delhi, Rajasthan)"
+"cat__state_group_Multi-States (Chhattisgarh, Odisha)",0.0,time_overrun_months,"State group: Multi-States (Chhattisgarh, Odisha)"
+"cat__state_group_Multi-States (Karnataka, Kerala, Tamil Nadu)",0.0,time_overrun_months,"State group: Multi-States (Karnataka, Kerala, Tamil Nadu)"
+"cat__state_group_Multi-States (Karnataka, Kerala)",0.0,time_overrun_months,"State group: Multi-States (Karnataka, Kerala)"
+"cat__state_group_Multi-States (Jharkhand, West Bengal)",0.0,time_overrun_months,"State group: Multi-States (Jharkhand, West Bengal)"
+"cat__state_group_Multi-States (Jharkhand, Odisha, West Bengal)",0.0,time_overrun_months,"State group: Multi-States (Jharkhand, Odisha, West Bengal)"
+"cat__state_group_Multi-States (Himachal Pradesh, Uttarakhand)",0.0,time_overrun_months,"State group: Multi-States (Himachal Pradesh, Uttarakhand)"
+"cat__state_group_Multi-States (Jharkhand, Odisha)",0.0,time_overrun_months,"State group: Multi-States (Jharkhand, Odisha)"
+"cat__state_group_Multi-States (Haryana, Rajasthan)",0.0,time_overrun_months,"State group: Multi-States (Haryana, Rajasthan)"
+"cat__state_group_Multi-States (Haryana, Uttar Pradesh)",0.0,time_overrun_months,"State group: Multi-States (Haryana, Uttar Pradesh)"
+"cat__state_group_Multi-States (Gujarat, Rajasthan)",0.0,time_overrun_months,"State group: Multi-States (Gujarat, Rajasthan)"
+"cat__state_group_Multi-States (Haryana, Himachal Pradesh)",0.0,time_overrun_months,"State group: Multi-States (Haryana, Himachal Pradesh)"
+"cat__state_group_Multi-States (Haryana, Punjab, Rajasthan)",0.0,time_overrun_months,"State group: Multi-States (Haryana, Punjab, Rajasthan)"
+"cat__state_group_Multi-States (Haryana, Punjab)",0.0,time_overrun_months,"State group: Multi-States (Haryana, Punjab)"
+"cat__state_group_Multi-States (Gujarat, Haryana, Maharashtra, Rajasthan, Uttar Pradesh)",0.0,time_overrun_months,"State group: Multi-States (Gujarat, Haryana, Maharashtra, Rajasthan, Uttar Pradesh)"
+"cat__state_group_Multi-States (Gujarat, Haryana, Punjab, Rajasthan)",0.0,time_overrun_months,"State group: Multi-States (Gujarat, Haryana, Punjab, Rajasthan)"
+"cat__state_group_Multi-States (Gujarat, Haryana, Rajasthan)",0.0,time_overrun_months,"State group: Multi-States (Gujarat, Haryana, Rajasthan)"
+"cat__state_group_Multi-States (Gujarat, Madhya Pradesh, Uttar Pradesh)",0.0,time_overrun_months,"State group: Multi-States (Gujarat, Madhya Pradesh, Uttar Pradesh)"
+"cat__state_group_Multi-States (Bihar, Odisha, West Bengal)",0.0,time_overrun_months,"State group: Multi-States (Bihar, Odisha, West Bengal)"
+"cat__state_group_Multi-States (Bihar, Madhya Pradesh, Rajasthan, Uttar Pradesh)",0.0,time_overrun_months,"State group: Multi-States (Bihar, Madhya Pradesh, Rajasthan, Uttar Pradesh)"
+"cat__state_group_Multi-States (Chhattisgarh, Maharashtra)",0.0,time_overrun_months,"State group: Multi-States (Chhattisgarh, Maharashtra)"
+"cat__state_group_Multi-States (Delhi, Gujarat, Madhya Pradesh, Maharashtra, Rajasthan)",0.0,time_overrun_months,"State group: Multi-States (Delhi, Gujarat, Madhya Pradesh, Maharashtra, Rajasthan)"
+"cat__state_group_Multi-States (Delhi, Haryana)",0.0,time_overrun_months,"State group: Multi-States (Delhi, Haryana)"
+"cat__state_group_Multi-States (Kerala, Puducherry)",0.0,time_overrun_months,"State group: Multi-States (Kerala, Puducherry)"
+"cat__state_group_Multi-States (Kerala, Tamil Nadu)",0.0,time_overrun_months,"State group: Multi-States (Kerala, Tamil Nadu)"
+"cat__state_group_Multi-States (Karnataka, Maharashtra, Telangana, Uttar Pradesh)",0.0,time_overrun_months,"State group: Multi-States (Karnataka, Maharashtra, Telangana, Uttar Pradesh)"
+"cat__state_group_Multi-States (Uttar Pradesh, Uttarakhand)",0.0,time_overrun_months,"State group: Multi-States (Uttar Pradesh, Uttarakhand)"
+"cat__state_group_Multi-States (Sikkim, West Bengal)",0.0,time_overrun_months,"State group: Multi-States (Sikkim, West Bengal)"
+"cat__state_group_Multi-States (Rajasthan, Uttar Pradesh)",0.0,time_overrun_months,"State group: Multi-States (Rajasthan, Uttar Pradesh)"
+"cat__state_group_Multi-States (Punjab, Rajasthan)",0.0,time_overrun_months,"State group: Multi-States (Punjab, Rajasthan)"
+cat__state_group_PAN India,0.0,time_overrun_months,State group: PAN India
+cat__state_group_Puducherry,0.0,time_overrun_months,State group: Puducherry
+"cat__state_group_Multi-States (Uttar Pradesh, West Bengal)",0.0,time_overrun_months,"State group: Multi-States (Uttar Pradesh, West Bengal)"
+cat__state_group_infrequent_sklearn,0.0,time_overrun_months,State group: infrequent_sklearn

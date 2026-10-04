@@ -1,0 +1,338 @@
+{
+  "sectors": [
+    {
+      "Value": 110,
+      "Text": "Aviation & Aviation Infrastructure"
+    },
+    {
+      "Value": 121,
+      "Text": "Chemicals"
+    },
+    {
+      "Value": 123,
+      "Text": "Coal"
+    },
+    {
+      "Value": 115,
+      "Text": "Construction "
+    },
+    {
+      "Value": 31,
+      "Text": "Education"
+    },
+    {
+      "Value": 3,
+      "Text": "Electricity Generation"
+    },
+    {
+      "Value": 103,
+      "Text": "Energy Storage"
+    },
+    {
+      "Value": 1,
+      "Text": "Food Processing & Agriculture"
+    },
+    {
+      "Value": 113,
+      "Text": "Healthcare"
+    },
+    {
+      "Value": 10,
+      "Text": "Inland Waterways"
+    },
+    {
+      "Value": 7,
+      "Text": "Logistics Infrastructure"
+    },
+    {
+      "Value": 122,
+      "Text": "Metals & Mining"
+    },
+    {
+      "Value": 12,
+      "Text": "Oil & Gas"
+    },
+    {
+      "Value": 108,
+      "Text": "Railways"
+    },
+    {
+      "Value": 9,
+      "Text": "Real Estate"
+    },
+    {
+      "Value": 107,
+      "Text": "Roads & Highways"
+    },
+    {
+      "Value": 109,
+      "Text": "Shipping"
+    },
+    {
+      "Value": 114,
+      "Text": "Sports"
+    },
+    {
+      "Value": 104,
+      "Text": "Steel"
+    },
+    {
+      "Value": 30,
+      "Text": "Telecommunication"
+    },
+    {
+      "Value": 8,
+      "Text": "Tourism, Hospitality & Wellness"
+    },
+    {
+      "Value": 102,
+      "Text": "Transmission & Distribution"
+    },
+    {
+      "Value": 111,
+      "Text": "Urban Public Transport"
+    },
+    {
+      "Value": 106,
+      "Text": "Utility and Resources Pipelines"
+    },
+    {
+      "Value": 18,
+      "Text": "Waste & Water"
+    },
+    {
+      "Value": 112,
+      "Text": "Water Resources"
+    }
+  ],
+  "states": [
+    {
+      "Value": 47,
+      "Text": "Andaman & Nicobar"
+    },
+    {
+      "Value": 1,
+      "Text": "Andhra Pradesh"
+    },
+    {
+      "Value": 2,
+      "Text": "Arunachal Pradesh"
+    },
+    {
+      "Value": 3,
+      "Text": "Assam"
+    },
+    {
+      "Value": 4,
+      "Text": "Bihar"
+    },
+    {
+      "Value": 48,
+      "Text": "Chandigarh"
+    },
+    {
+      "Value": 5,
+      "Text": "Chhattisgarh"
+    },
+    {
+      "Value": 43,
+      "Text": "Dadra & Nagar Haveli and Daman & Diu"
+    },
+    {
+      "Value": 32,
+      "Text": "Delhi"
+    },
+    {
+      "Value": 6,
+      "Text": "Goa"
+    },
+    {
+      "Value": 31,
+      "Text": "Gujarat"
+    },
+    {
+      "Value": 7,
+      "Text": "Haryana"
+    },
+    {
+      "Value": 8,
+      "Text": "Himachal Pradesh"
+    },
+    {
+      "Value": 9,
+      "Text": "Jammu & Kashmir"
+    },
+    {
+      "Value": 10,
+      "Text": "Jharkhand"
+    },
+    {
+      "Value": 11,
+      "Text": "Karnataka"
+    },
+    {
+      "Value": 12,
+      "Text": "Kerala"
+    },
+    {
+      "Value": 42,
+      "Text": "Ladakh"
+    },
+    {
+      "Value": 41,
+      "Text": "Lakshadweep"
+    },
+    {
+      "Value": 13,
+      "Text": "Madhya Pradesh"
+    },
+    {
+      "Value": 34,
+      "Text": "Maharashtra"
+    },
+    {
+      "Value": 14,
+      "Text": "Manipur"
+    },
+    {
+      "Value": 15,
+      "Text": "Meghalaya"
+    },
+    {
+      "Value": 16,
+      "Text": "Mizoram"
+    },
+    {
+      "Value": 17,
+      "Text": "Nagaland"
+    },
+    {
+      "Value": 18,
+      "Text": "Odisha"
+    },
+    {
+      "Value": 44,
+      "Text": "Puducherry"
+    },
+    {
+      "Value": 19,
+      "Text": "Punjab"
+    },
+    {
+      "Value": 33,
+      "Text": "Rajasthan"
+    },
+    {
+      "Value": 20,
+      "Text": "Sikkim"
+    },
+    {
+      "Value": 21,
+      "Text": "Tamil Nadu"
+    },
+    {
+      "Value": 24,
+      "Text": "Telangana"
+    },
+    {
+      "Value": 22,
+      "Text": "Tripura"
+    },
+    {
+      "Value": 37,
+      "Text": "Uttar Pradesh"
+    },
+    {
+      "Value": 23,
+      "Text": "Uttarakhand"
+    },
+    {
+      "Value": 36,
+      "Text": "West Bengal"
+    }
+  ],
+  "ministries": [
+    {
+      "Value": 29,
+      "Text": "Department for Promotion of Industry & Internal Trade"
+    },
+    {
+      "Value": 5,
+      "Text": "Department of Higher Education"
+    },
+    {
+      "Value": 20,
+      "Text": "Department of Sports"
+    },
+    {
+      "Value": 32,
+      "Text": "Department of Telecommunications"
+    },
+    {
+      "Value": 30,
+      "Text": "Department of Water Resources, River Development & GR"
+    },
+    {
+      "Value": 43,
+      "Text": "Ministry of Chemicals and Fertilizers"
+    },
+    {
+      "Value": 3,
+      "Text": "Ministry of Civil Aviation"
+    },
+    {
+      "Value": 35,
+      "Text": "Ministry of Coal"
+    },
+    {
+      "Value": 33,
+      "Text": "Ministry of Health & Family Welfare"
+    },
+    {
+      "Value": 22,
+      "Text": "Ministry of Housing & Urban Affairs"
+    },
+    {
+      "Value": 49,
+      "Text": "Ministry of Labour and Employment"
+    },
+    {
+      "Value": 38,
+      "Text": "Ministry of Mines"
+    },
+    {
+      "Value": 16,
+      "Text": "Ministry of New & Renewable Energy"
+    },
+    {
+      "Value": 10,
+      "Text": "Ministry of Petroleum & Natural Gas"
+    },
+    {
+      "Value": 12,
+      "Text": "Ministry of Ports, Shipping and Waterways"
+    },
+    {
+      "Value": 15,
+      "Text": "Ministry of Power"
+    },
+    {
+      "Value": 1,
+      "Text": "Ministry of Railways"
+    },
+    {
+      "Value": 2,
+      "Text": "Ministry of Road Transport & Highways"
+    },
+    {
+      "Value": 14,
+      "Text": "Ministry of Steel"
+    }
+  ],
+  "freeze_dates": {
+    "success": true,
+    "firstFreeze": "2025-07",
+    "lastFreeze": "2026-08",
+    "displayFreeze": "August 2026"
+  }
+}
