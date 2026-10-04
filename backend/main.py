@@ -30,7 +30,10 @@ from backend.store import ARTIFACTS, DB_PATH, ROOT
 
 @asynccontextmanager
 async def lifespan(_: FastAPI):
-    store.build(DB_PATH)
+    try:
+        store.build(DB_PATH)
+    except FileNotFoundError as error:
+        raise RuntimeError(str(error)) from error
     yield
 
 

@@ -32,7 +32,14 @@ def connect(path: Path | str = DB_PATH) -> sqlite3.Connection:
 
 
 def load_bundle() -> dict:
-    return joblib.load(ARTIFACTS / "models.joblib")
+    path = ARTIFACTS / "models.joblib"
+    if not path.exists():
+        raise FileNotFoundError(
+            f"Trained models are missing: {path} not found. "
+            "Run `python -m backend.train` to fit them, then "
+            "`python -m backend.store` to rebuild the database."
+        )
+    return joblib.load(path)
 
 
 def build(path: Path | str = DB_PATH, force: bool = False) -> Path:

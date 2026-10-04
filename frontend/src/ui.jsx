@@ -85,9 +85,24 @@ export function ErrorNote({ error }) {
   return (
     <div className="card">
       <div className="card-body">
-        <div className="note-block">
-          Could not reach the API: {String(error.message ?? error)}. Start the backend with
-          <code> python -m backend.main</code> and reload.
+        <strong style={{ color: "#b3261e" }}>The API is not answering</strong>
+        <div className="note-block" style={{ marginTop: 8 }}>
+          <div>{String(error.message ?? error)}</div>
+          <div style={{ marginTop: 8 }}>
+            The site renders nothing without the FastAPI service. In two terminals from the
+            project root:
+          </div>
+          <div style={{ marginTop: 6 }}>
+            <code>python -m backend.main</code>
+            <br />
+            <code>cd frontend &amp;&amp; npm run dev</code>
+          </div>
+          <div style={{ marginTop: 8 }}>
+            On a fresh clone also run <code>python -m backend.train</code> and{" "}
+            <code>python -m backend.store</code> once, before starting the API. Confirm the
+            service is up at <code>http://127.0.0.1:8000/api/health</code> &mdash; it should
+            return <code>{'{"status":"ok", ...}'}</code>.
+          </div>
         </div>
       </div>
     </div>

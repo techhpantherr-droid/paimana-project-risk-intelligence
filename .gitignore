@@ -9,6 +9,6 @@ frontend/dist/
 # raw portal PDFs are re-downloaded by scraper/paimana_client.py
 data/raw/reports/*.pdf
 
-# built artefacts, reproducible with `python -m backend.train` and `python -m backend.store`
-artifacts/*.joblib
-data/app.db
+# artifacts/ and data/app.db are committed so a fresh clone runs without
+# re-training. Regenerate them with:
+#   python -m backend.train && python -m backend.store
