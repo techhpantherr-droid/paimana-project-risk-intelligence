@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T18:33:03+00:00",
+  "generated_at": "2026-10-04T18:35:26+00:00",
   "source": "PAIMANA monthly Flash Reports, paimana-proj.mospi.gov.in",
   "snapshots": [
     "2026-04",
@@ -22,14 +22,14 @@
           "mae": 1.329,
           "rmse": 8.364,
           "r2": 0.882,
-          "seconds": 19.5
+          "seconds": 30.0
         },
         {
           "model": "XGBoost",
           "mae": 1.352,
           "rmse": 8.394,
           "r2": 0.881,
-          "seconds": 2.9
+          "seconds": 6.1
         },
         {
           "model": "Median baseline",
@@ -43,14 +43,14 @@
           "mae": 8.579,
           "rmse": 16.78,
           "r2": 0.523,
-          "seconds": 0.3
+          "seconds": 0.4
         },
         {
           "model": "Ridge",
           "mae": 8.635,
           "rmse": 16.749,
           "r2": 0.525,
-          "seconds": 0.1
+          "seconds": 0.2
         }
       ]
     },
@@ -63,21 +63,21 @@
           "mae": 2.225,
           "rmse": 4.195,
           "r2": 0.953,
-          "seconds": 4.6
+          "seconds": 5.5
         },
         {
           "model": "Random forest",
           "mae": 2.366,
           "rmse": 4.621,
           "r2": 0.942,
-          "seconds": 29.5
+          "seconds": 33.8
         },
         {
           "model": "Linear regression",
           "mae": 7.209,
           "rmse": 10.205,
           "r2": 0.719,
-          "seconds": 0.7
+          "seconds": 0.9
         },
         {
           "model": "Ridge",
@@ -91,7 +91,7 @@
           "mae": 15.108,
           "rmse": 20.17,
           "r2": -0.097,
-          "seconds": 0.0
+          "seconds": 0.1
         }
       ]
     },
@@ -109,7 +109,7 @@
           "accuracy": 0.943,
           "balanced_accuracy": 0.8343,
           "macro_f1": 0.8557,
-          "seconds": 8.8,
+          "seconds": 9.4,
           "per_class": {
             "Low": {
               "precision": 0.934,
@@ -136,7 +136,7 @@
           "accuracy": 0.9087,
           "balanced_accuracy": 0.7177,
           "macro_f1": 0.7447,
-          "seconds": 0.9,
+          "seconds": 1.3,
           "per_class": {
             "Low": {
               "precision": 0.899,
@@ -163,7 +163,7 @@
           "accuracy": 0.9074,
           "balanced_accuracy": 0.673,
           "macro_f1": 0.6813,
-          "seconds": 8.1,
+          "seconds": 8.7,
           "per_class": {
             "Low": {
               "precision": 0.878,

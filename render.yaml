@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: pragati-ai
+    runtime: python
+    plan: free
+    region: singapore
+    buildCommand: >-
+      if command -v npm > /dev/null 2>&1; then
+      cd frontend && npm install && npm run build;
+      else
+      sudo apt-get update -qq && sudo apt-get install -y -qq nodejs npm &&
+      cd frontend && npm install && npm run build;
+      fi
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.11"
+      - key: PYTHONUNBUFFERED
+        value: "1"

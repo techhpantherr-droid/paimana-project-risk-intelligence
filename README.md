@@ -1,7 +1,8 @@
-# PAIMANA Project Risk Intelligence
+# PRAGATI-AI · PAIMANA Project Risk Intelligence
 
-Forecasting cost pressure, schedule slippage and risk band for centrally sponsored
-infrastructure projects, built entirely on data the PAIMANA portal publishes.
+SIH 2026, problem statement 26103. Forecasting cost pressure, schedule slippage and risk band
+for centrally sponsored infrastructure projects, built entirely on data the PAIMANA portal
+publishes.
 
 Every number in the interface comes from the PAIMANA extract or from models trained on
 it. Nothing is estimated at request time and the assistant will not produce a figure it
@@ -114,6 +115,34 @@ cd frontend && npm install && npm run dev
 `python -m scraper.build_dataset` re-downloads the source PDFs and re-parses them.
 That takes a long time because the report tables need `pdfplumber.find_tables()`. The
 processed CSVs are committed, so steps 2 to 5 work without it.
+
+## Deploy on Render
+
+`render.yaml` defines a single web service that builds the React app and serves both it and
+the API from one origin, so the frontend calls `/api/...` on the same host and no `VITE_API`
+value is needed.
+
+1. Push the repository to GitHub, then in Render choose **New -> Blueprint** and point it at
+   the repository. Render reads `render.yaml` and creates the service.
+2. Or create a **Web Service** manually with these settings:
+
+   | Setting | Value |
+   | --- | --- |
+   | Runtime | Python 3.11 |
+   | Build Command | `cd frontend && npm install && npm run build` |
+   | Start Command | `uvicorn backend.main:app --host 0.0.0.0 --port $PORT` |
+   | Health Check Path | `/api/health` |
+
+3. Deploy. `artifacts/models.joblib` and `data/app.db` are committed, so the first boot scores
+   the latest snapshot on startup and serves data immediately, with no training step in the
+   deploy.
+
+Once `frontend/dist` exists, `backend/main.py` mounts it: `/assets/*` is served statically and
+every other path returns `index.html`, so client-side routes like `/projects` and
+`/assistant` deep-link correctly.
+
+Notes for the free plan: instances sleep after inactivity, so the first request after a pause
+takes a few seconds while the service wakes up.
 
 ## Layout
 

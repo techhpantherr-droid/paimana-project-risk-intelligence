@@ -10,16 +10,16 @@ export function useShell() {
 }
 
 const NAV = [
-  ["/", "Dashboard"],
-  ["/projects", "Project Explorer"],
-  ["/predict", "Cost & Delay Prediction"],
-  ["/risk", "Risk & Early Warnings"],
-  ["/drivers", "Driver Analysis"],
-  ["/benchmarks", "Benchmarking"],
-  ["/sectors", "Sector & State"],
-  ["/models", "Model Performance"],
-  ["/data-gap", "Data Gap"],
-  ["/assistant", "AI Assistant"],
+  ["/", "Dashboard", "◧"],
+  ["/projects", "Projects", "▤"],
+  ["/risk", "Risk Analytics", "▲"],
+  ["/predict", "What-If Analysis", "⇄"],
+  ["/drivers", "What-If Drivers", "◎"],
+  ["/benchmarks", "Benchmarking", "⇅"],
+  ["/sectors", "Data Insights", "◈"],
+  ["/models", "Model Validation", "∑"],
+  ["/data-gap", "Data Gap", "◐"],
+  ["/assistant", "AI Assistant", "✦"],
 ];
 
 export default function App() {
@@ -36,46 +36,56 @@ export default function App() {
 
   return (
     <ShellContext.Provider value={{ freeze }}>
-      <div className="gov-bar">
-        <span>Government of India &middot; Ministry of Statistics &amp; Programme Implementation</span>
-        <span>Public Investment Infrastructure Monitoring System</span>
-      </div>
-
-      <header className="masthead">
-        <div className="emblem">सा</div>
-        <div>
-          <h1>PAIMANA &middot; Project Risk Intelligence</h1>
-          <div className="sub">
-            Cost overrun, delay and risk forecasts built on the published project panel
+      <div className="app">
+        <aside className="side">
+          <div className="brand">
+            PRAGATI<span>-AI</span>
           </div>
-        </div>
-        <div className="spacer" />
-        <div className="freeze-badge">
-          <span>Data as on</span>
-          <strong>{freeze?.freeze_label ?? "-"}</strong>
-          <span>{freeze ? `${freeze.projects.toLocaleString("en-IN")} projects` : ""}</span>
-        </div>
-      </header>
+          <div className="brand-tag">Predict &bull; Prevent &bull; Deliver</div>
 
-      <nav className="nav">
-        <div className="nav-inner">
-          {NAV.map(([path, label]) => (
-            <NavLink key={path} to={path} end={path === "/"}>
-              {label}
-            </NavLink>
-          ))}
+          <nav className="side-nav">
+            {NAV.map(([path, label, glyph]) => (
+              <NavLink key={path} to={path} end={path === "/"}>
+                <span className="glyph">{glyph}</span>
+                {label}
+              </NavLink>
+            ))}
+          </nav>
+
+          <div className="side-source">
+            Source: PAIMANA monthly Flash Reports &amp; portal aggregates,
+            paimana-proj.mospi.gov.in. Figures are {freeze?.freeze_label ?? "the latest freeze"}
+            {" "}publish figures; risk values are model estimates.
+          </div>
+        </aside>
+
+        <div className="main">
+          <header className="topbar">
+            <div>
+              <h1>AI Powered Project Monitoring and Risk Analytics Platform</h1>
+              <p className="sub">
+                Cost overrun, schedule delay and risk forecasts for {freeze?.projects?.toLocaleString("en-IN") ?? "-"} PAIMANA projects
+              </p>
+            </div>
+            <div className="logos">
+              <span className="gov">
+                <span aria-hidden="true">सा</span> MoSPI
+              </span>
+              <span className="sih">SIH 2026 &middot; PS 26103</span>
+              <span className="badge">Data as on {freeze?.freeze_label ?? "-"}</span>
+            </div>
+          </header>
+
+          <main className="content">
+            <Outlet />
+          </main>
+
+          <footer className="footer">
+            PRAGATI-AI &middot; Public Investment Infrastructure Monitoring System &middot;
+            predictions are one-month-ahead estimates from models trained on published fields only
+          </footer>
         </div>
-      </nav>
-
-      <main>
-        <Outlet />
-      </main>
-
-      <footer className="footer">
-        Source: PAIMANA monthly Flash Reports and portal aggregates, paimana-proj.mospi.gov.in
-        &middot; Predictions are one-month-ahead estimates from models trained on the
-        published fields only
-      </footer>
+      </div>
     </ShellContext.Provider>
   );
 }

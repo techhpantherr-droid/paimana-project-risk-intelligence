@@ -20,6 +20,8 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from backend import features as F
@@ -42,6 +44,7 @@ app = FastAPI(title="PAIMANA Project Risk Intelligence API", version="1.0.0",
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_origin_regex=r"https://.*\.onrender\.com",
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -449,6 +452,20 @@ def search_suggestions() -> dict:
                 "What data is missing?",
                 "What will happen next month?",
             ]}
+
+
+DIST = ROOT / "frontend" / "dist"
+if (DIST / "assets").is_dir():
+    app.mount("/assets", StaticFiles(directory=DIST / "assets"), name="assets")
+
+
+    @app.get("/{spa_path:path}", include_in_schema=False)
+    def spa(spa_path: str) -> FileResponse:
+        """Serve the built React app, so one service hosts the API and the site."""
+        candidate = (DIST / spa_path).resolve()
+        if spa_path and candidate.is_file() and DIST.resolve() in candidate.parents:
+            return FileResponse(candidate)
+        return FileResponse(DIST / "index.html")
 
 
 if __name__ == "__main__":

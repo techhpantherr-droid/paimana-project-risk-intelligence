@@ -1,7 +1,7 @@
 const BASE = import.meta.env.VITE_API ?? "";
 
 async function get(path, params) {
-  const url = new URL(BASE + path);
+  const url = new URL(BASE + path, window.location.origin);
   Object.entries(params ?? {}).forEach(([key, value]) => {
     if (value !== "" && value !== undefined && value !== null) url.searchParams.set(key, value);
   });

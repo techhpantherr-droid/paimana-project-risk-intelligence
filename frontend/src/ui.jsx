@@ -16,7 +16,7 @@ import {
 } from "recharts";
 import { money, monthLabel, num } from "./api";
 
-export const AXIS = { fontSize: 11, fill: "#6b7280", fontFamily: "Nunito, Montserrat, sans-serif" };
+export const AXIS = { fontSize: 10, fill: "#6b7c93", fontFamily: "Inter, Segoe UI, sans-serif" };
 export const TOOLTIP = {
   contentStyle: {
     border: "1px solid #dfe4ec",
@@ -51,6 +51,20 @@ export function Card({ title, hint, actions, children, flush = false }) {
       </div>
       <div className={flush ? "card-body flush" : "card-body"}>{children}</div>
     </section>
+  );
+}
+
+export function Modal({ open, onClose, title, subtitle, children }) {
+  if (!open) return null;
+  return (
+    <div className="modal open" onClick={onClose} role="presentation">
+      <div className="modal-box" onClick={(event) => event.stopPropagation()} role="dialog">
+        <button className="close" onClick={onClose}>Close</button>
+        <h2>{title}</h2>
+        {subtitle ? <div className="modal-sub">{subtitle}</div> : null}
+        {children}
+      </div>
+    </div>
   );
 }
 
